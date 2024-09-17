@@ -11,7 +11,7 @@ from typing import Union
 import benchpots
 import numpy as np
 import torch
-
+import torch.nn as nn
 
 def turn_data_into_specified_dtype(
     data: Union[np.ndarray, torch.Tensor, list],
@@ -425,6 +425,62 @@ def non_uniform_sample_loader_bidirectional(data, removal_percent, pre_replaceme
     
     return recs, replacement_probabilities
 
+def sample_loader_bidirectional( data, removal_percent):
+    # Random seed
+    np.random.seed(1)
+    torch.manual_seed(1)
+
+    # Get Dimensionality
+    [N, T, D] = data.shape
+
+    # Reshape
+    data = data.reshape(N, T*D)
+
+    recs = []
+    number = 0
+    masks_sum = np.zeros(D)
+    eval_masks_sum = np.zeros(D)
+    for i in range(N):
+        try:
+            values = copy.deepcopy(data[i])
+            if removal_percent != 0:
+                # randomly eliminate 10% values as the imputation ground-truth
+                indices = np.where(~np.isnan(data[i]))[0].tolist()
+                indices = np.random.choice(indices, len(indices) * removal_percent // 100)
+                values[indices] = np.nan
+
+            masks = ~np.isnan(values)
+            eval_masks = (~np.isnan(values)) ^ (~np.isnan(data[i]))
+            evals = data[i].reshape(T, D)
+            values = values.reshape(T, D)
+            masks = masks.reshape(T, D)
+            eval_masks = eval_masks.reshape(T, D)
+            rec = {}
+            deltas_f = parse_delta_bidirectional(masks, direction='forward')
+            deltas_b = parse_delta_bidirectional(masks, direction='backward')
+            last_obs_f = compute_last_obs(values, masks, direction='forward')
+            last_obs_b = compute_last_obs(values, masks, direction='backward')
+            rec['values'] = np.nan_to_num(values).tolist()
+            rec['last_obs_f'] = np.nan_to_num(last_obs_f).tolist()
+            rec['last_obs_b'] = np.nan_to_num(last_obs_b).tolist()
+            rec['masks'] = masks.astype('int32').tolist()
+            rec['evals'] = np.nan_to_num(evals).tolist()
+            rec['eval_masks'] = eval_masks.astype('int32').tolist()
+            rec['deltas_f'] = deltas_f.tolist()
+            rec['deltas_b'] = deltas_b.tolist()
+            recs.append(rec)
+            number += 1
+            masks_sum += np.sum(masks, axis=0)
+            eval_masks_sum += np.sum(eval_masks, axis=0)
+        except Exception as e:
+            print(f"An exception occurred: {type(e).__name__}")
+            continue
+
+    return rec
+
+
+
+
 
 def collate_fn_bidirectional(recs):
 
@@ -455,3 +511,25 @@ def collate_fn_bidirectional(recs):
     # ret_dict['labels'] = torch.LongTensor(np.array([r['label'] for r in recs]))
 
     return ret_dict
+
+class DiceBCELoss(nn.Module):
+    def __init__(self, weight=None, size_average=True):
+        super(DiceBCELoss, self).__init__()
+        self.bcelogits = nn.BCEWithLogitsLoss()
+
+    def forward(self, y_score, y_out, targets, smooth=1):
+        
+        #comment out if your model contains a sigmoid or equivalent activation layer
+        # inputs = F.sigmoid(inputs)       
+        
+        #flatten label and prediction tensors
+        BCE = self.bcelogits(y_out, targets)
+
+        y_score = y_score.view(-1)
+        targets = targets.view(-1)
+        intersection = (y_score * targets).sum()
+        dice_loss = 1 - (2.*intersection + smooth)/(y_score.sum() + targets.sum() + smooth)
+
+        Dice_BCE = BCE + dice_loss
+        
+        return BCE, Dice_BCE

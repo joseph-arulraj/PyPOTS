@@ -172,8 +172,8 @@ class CSAI(BaseNNClassifier):
                 increase_factor=self.increase_factor,
                 compute_intervals=self.compute_intervals,
                 replacement_probabilities=self.training_set.replacement_probabilities,
-                normalise_mean=self.training_set.normalise_mean,
-                normalise_std=self.training_set.normalise_std,
+                normalise_mean=self.training_set.mean_set,
+                normalise_std=self.training_set.std_set,
                 training=False
 
             )
@@ -225,8 +225,8 @@ class CSAI(BaseNNClassifier):
             increase_factor=self.increase_factor,
             compute_intervals=self.compute_intervals,
             replacement_probabilities=self.training_set.replacement_probabilities,
-            normalise_mean=self.training_set.normalise_mean,
-            normalise_std=self.training_set.normalise_std,
+            normalise_mean=self.training_set.mean_set,
+            normalise_std=self.training_set.std_set,
             training=False
         )
         test_loader = DataLoader(

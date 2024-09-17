@@ -2,7 +2,7 @@
 
 
 
-#SBATCH --output=/scratch/users/k23031260/PyPOTS/output_logs/Imputation.out
+#SBATCH --output=/scratch/users/k23031260/PyPOTS/output_logs/Imputation_csai.out
 #SBATCH --job-name=pypots
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:1
