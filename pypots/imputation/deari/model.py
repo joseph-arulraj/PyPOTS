@@ -167,7 +167,7 @@ class DEARI(BaseNNImputer):
 
 
             # train the model
-            self._train(treain_loader, val_loader)
+            self._train_model(treain_loader, val_loader)
             self.model.load_state_dict(self.best_model_dict)
             self.model.eval()  # set the model as eval status to freeze it.
 

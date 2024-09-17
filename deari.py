@@ -1,10 +1,10 @@
 import pickle
 import logging
-from sklearn.metrics import confusion_matrix, roc_auc_score, accuracy_score, precision_recall_curve, balanced_accuracy_score, recall_score, precision_score, f1_score, roc_curve
+from sklearn.metrics import roc_auc_score, accuracy_score, balanced_accuracy_score, recall_score, precision_score, f1_score
 import numpy as np
 import torch
 import json
-
+import argparse
 from pypots.classification.deari import DEARI as classify
 from pypots.imputation.deari import DEARI as imputer
 from pypots.optim import Adam
@@ -64,7 +64,7 @@ def run_pypots(mode, data):
         "component_error": True,
         "model_name": 'Brits_multilayer',
         "batch_size": 64,
-        "epochs": 200,
+        "epochs": 50,
         "patience": 5,
         "optimizer": Adam(lr=0.0005, weight_decay=0.00001),
         "num_workers": 0,
@@ -124,20 +124,23 @@ def run_pypots(mode, data):
         mre = calc_mre(imputed_data, original_data, indicating_mask)
 
         return {
-            "MAE": mae,
-            "MRE": mre
+            "MAE": mae.item() if isinstance(mae, torch.Tensor) else mae,
+            "MRE": mre.item() if isinstance(mre, torch.Tensor) else mre
         }
 
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--mode", type=str)
+    args = parser.parse_args()
 
-    mode = 'impute'  
+    mode = args.mode 
     data_path = "/scratch/users/k23031260/data/physionet/data_nan.pkl"
     label_path = "/scratch/users/k23031260/data/physionet/label.pkl"
 
     all_fold_results = []
-    for fold in range(5):
+    for fold in range(1):
         logger.info(f"\n Fold {fold} started ...................................... \n")
         data = load_data(data_path, label_path, fold)
         results = run_pypots(mode, data)
@@ -145,18 +148,18 @@ if __name__ == "__main__":
         logger.info(f"\n Fold {fold} ended ........................................ \n")
         logger.info(f"\n Fold {fold} Results: \n{json.dumps(results, indent=4)} \n")
 
-    logger.info(f"\n Average performance across all folds.......................... \n")
-    if mode == 'impute':
-        avg_result = {metric: np.mean([fold[metric] for fold in all_fold_results]) for metric in all_fold_results[0].keys()}
-        logger.info(f"\n Imputation performance: \n {avg_result} \n")
-    else:
-        PyPots_evaluation = [{k: v for k,v in fold_result['PyPots_evaluation'].items()} for fold_result in all_fold_results]
-        CSAI_evaluation = [{k: v for k,v in fold_result['CSAI_evaluation'].items()} for fold_result in all_fold_results]
+    # logger.info(f"\n Average performance across all folds.......................... \n")
+    # if mode == 'impute':
+    #     avg_result = {metric: np.mean([fold[metric] for fold in all_fold_results]) for metric in all_fold_results[0].keys()}
+    #     logger.info(f"\n Imputation performance: \n {avg_result} \n")
+    # else:
+    #     PyPots_evaluation = [{k: v for k,v in fold_result['PyPots_evaluation'].items()} for fold_result in all_fold_results]
+    #     CSAI_evaluation = [{k: v for k,v in fold_result['CSAI_evaluation'].items()} for fold_result in all_fold_results]
 
-        avg_result = {metric: np.mean([fold[metric] for fold in PyPots_evaluation]) for metric in PyPots_evaluation[0].keys()}
-        logger.info(f"\n Classification performance using Pypots evaluation: \n {avg_result} \n")
+    #     avg_result = {metric: np.mean([fold[metric] for fold in PyPots_evaluation]) for metric in PyPots_evaluation[0].keys()}
+    #     logger.info(f"\n Classification performance using Pypots evaluation: \n {avg_result} \n")
 
-        avg_result = {metric: np.mean([fold[metric] for fold in CSAI_evaluation]) for metric in CSAI_evaluation[0].keys()}
-        logger.info(f"\n Classification performance using CSAI evaluation: \n {avg_result} \n")
+    #     avg_result = {metric: np.mean([fold[metric] for fold in CSAI_evaluation]) for metric in CSAI_evaluation[0].keys()}
+    #     logger.info(f"\n Classification performance using CSAI evaluation: \n {avg_result} \n")
 
 

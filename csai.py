@@ -1,5 +1,6 @@
 import pickle
 import logging
+import argparse
 import numpy as np
 import torch
 from sklearn.metrics import (
@@ -145,7 +146,11 @@ def run_pypots(mode, data):
 
 if __name__ == "__main__":
 
-    mode = 'impute'  
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--mode", type=str)
+    args = parser.parse_args()
+
+    mode = args.mode
     data_path = "/scratch/users/k23031260/data/physionet/data_nan.pkl"
     label_path = "/scratch/users/k23031260/data/physionet/label.pkl"
 

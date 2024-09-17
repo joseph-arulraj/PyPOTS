@@ -2,8 +2,8 @@
 
 
 
-#SBATCH --output=/scratch/users/k23031260/PyPOTS/output_logs/Imputation_csai.out
-#SBATCH --job-name=pypots
+#SBATCH --output=/scratch/users/k23031260/PyPOTS/output_logs/Classification_csai.out
+#SBATCH --job-name=csai_classify
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:1
 #SBATCH --mem=256G
@@ -20,6 +20,6 @@ source activate imputation
 # Navigate to the directory containing the Python script
 cd /scratch/users/k23031260/PyPOTS
 
-python csai.py
+python csai.py --mode classify
 
 

@@ -476,7 +476,7 @@ def sample_loader_bidirectional( data, removal_percent):
             print(f"An exception occurred: {type(e).__name__}")
             continue
 
-    return rec
+    return recs
 
 
 

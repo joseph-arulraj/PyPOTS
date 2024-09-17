@@ -20,7 +20,7 @@ class DEARI(BaseNNClassifier):
                     classification_weight: float,
                     n_classes: int,
                     removal_percent: int,
-                    num_encoderlayer: int,
+                    num_encoder_layers: int,
                     component_error: bool,
                     is_gru: bool,
                     multi: int,
@@ -53,7 +53,7 @@ class DEARI(BaseNNClassifier):
             self.consistency_weight = consistency_weight
             self.classification_weight = classification_weight
             self.removal_percent = removal_percent
-            self.num_encoderlayer = num_encoderlayer
+            self.num_encoderlayer = num_encoder_layers
             self.model_name = model_name
             self.component_error = component_error
             self.is_gru = is_gru
