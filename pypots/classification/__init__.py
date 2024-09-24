@@ -10,6 +10,7 @@ from .grud import GRUD
 from .raindrop import Raindrop
 from .csai import CSAI
 from .deari import DEARI
+from .bayesian_deari import Bayesian_DEARI
 
 __all__ = [
     "BRITS",
@@ -17,4 +18,5 @@ __all__ = [
     "Raindrop",
     "CSAI",
     "DEARI",
+    "Bayesian_DEARI",
 ]

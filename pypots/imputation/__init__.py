@@ -39,6 +39,7 @@ from .timemixer import TimeMixer
 from .moderntcn import ModernTCN
 from .csai import CSAI
 from .deari import DEARI
+from .bayesian_deari import Bayesian_DEARI
 
 # naive imputation methods
 from .locf import LOCF
@@ -51,6 +52,7 @@ __all__ = [
     # neural network imputation methods
     "CSAI",
     "DEARI",
+    "Bayesian_DEARI",
     "SAITS",
     "Transformer",
     "iTransformer",
