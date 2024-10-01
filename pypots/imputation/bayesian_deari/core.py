@@ -103,6 +103,7 @@ class _Bayesian_DEARI(nn.Module):
                 imputed_data = freeze_imputed_data
                 xreg_loss = freeze_reconstruction_loss
                 loss_consistency = freeze_consistency_loss
+                kl_loss = freeze_loss_KL
 
 
                
@@ -126,6 +127,7 @@ class _Bayesian_DEARI(nn.Module):
             b_hidden_states,
             consistency_loss,
             reconstruction_loss,
+            kl_loss
             ) = self.model(inputs)
 
             results = {

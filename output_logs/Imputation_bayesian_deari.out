@@ -1,0 +1,217 @@
+Lmod has detected the following error: The following module(s) are unknown:
+"anaconda3/2021.05-gcc-9.4.0"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "anaconda3/2021.05-gcc-9.4.0"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"cuda/11.1.1-gcc-9.4.0"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "cuda/11.1.1-gcc-9.4.0"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"cudnn/8.0.5.39-11.1-gcc-9.4.0"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "cudnn/8.0.5.39-11.1-gcc-9.4.0"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Tue Sep 24 13:02:34 2024       
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.183.01             Driver Version: 535.183.01   CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  | 00000000:17:00.0 Off |                   On |
+| N/A   34C    P0              61W / 400W |   1153MiB / 40960MiB |     N/A      Default |
+|                                         |                      |              Enabled |
++-----------------------------------------+----------------------+----------------------+
+|   1  NVIDIA A100-SXM4-40GB          On  | 00000000:31:00.0 Off |                   On |
+| N/A   32C    P0              42W / 400W |     87MiB / 40960MiB |     N/A      Default |
+|                                         |                      |              Enabled |
++-----------------------------------------+----------------------+----------------------+
+|   2  NVIDIA A100-SXM4-40GB          On  | 00000000:B1:00.0 Off |                   On |
+| N/A   31C    P0              43W / 400W |     87MiB / 40960MiB |     N/A      Default |
+|                                         |                      |              Enabled |
++-----------------------------------------+----------------------+----------------------+
+|   3  NVIDIA A100-SXM4-40GB          On  | 00000000:CA:00.0 Off |                   On |
+| N/A   33C    P0              41W / 400W |     87MiB / 40960MiB |     N/A      Default |
+|                                         |                      |              Enabled |
++-----------------------------------------+----------------------+----------------------+
+
++---------------------------------------------------------------------------------------+
+| MIG devices:                                                                          |
++------------------+--------------------------------+-----------+-----------------------+
+| GPU  GI  CI  MIG |                   Memory-Usage |        Vol|      Shared           |
+|      ID  ID  Dev |                     BAR1-Usage | SM     Unc| CE ENC DEC OFA JPG    |
+|                  |                                |        ECC|                       |
+|==================+================================+===========+=======================|
+|  0    7   0   0  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  0   12   0   1  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  0   13   0   2  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  0   14   0   3  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  1    7   0   0  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  1    8   0   1  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  1    9   0   2  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  1   10   0   3  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  1   11   0   4  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  1   12   0   5  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  1   13   0   6  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  2    7   0   0  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  2    8   0   1  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  2    9   0   2  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  2   10   0   3  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  2   11   0   4  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  2   12   0   5  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  2   13   0   6  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  3    7   0   0  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  3    8   0   1  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  3    9   0   2  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  3   10   0   3  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  3   11   0   4  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  3   12   0   5  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+|  3   13   0   6  |              12MiB /  4864MiB  | 14      0 |  1   0    0    0    0 |
+|                  |               0MiB /  8191MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
+                                                                                         
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|  No running processes found                                                           |
++---------------------------------------------------------------------------------------+
+/var/lib/slurm/slurmd/job21249606/slurm_script: line 18: activate: No such file or directory
+2024-09-24 13:03:28.994149: I tensorflow/core/util/port.cc:110] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-09-24 13:03:32.336262: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-09-24 13:03:47.879196: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+INFO:__main__:
+ Fold 0 started ...................................... 
+
+2024-09-24 13:04:11 [INFO]: Using the given device: cuda
+2024-09-24 13:04:11 [INFO]: Model files will be saved to /scratch/users/k23031260/PyPOTS/20240924_T130411
+2024-09-24 13:04:11 [INFO]: Tensorboard file will be saved to /scratch/users/k23031260/PyPOTS/20240924_T130411/tensorboard
+INFO:__main__:
+ Training..................................... 
+
+2024-09-24 13:04:21 [INFO]: Bayesian_DEARI initialized with the given hyperparameters, the number of trainable parameters: 19,682,944
+Model state change to unfreeze!
+2024-09-24 13:04:34 [ERROR]: ❌ Exception: CUDA out of memory. Tried to allocate 24.00 MiB. GPU 0 has a total capacty of 4.75 GiB of which 12.00 MiB is free. Process 145424 has 1.03 GiB memory in use. Including non-PyTorch memory, this process has 4.72 GiB memory in use. Of the allocated memory 4.55 GiB is allocated by PyTorch, and 73.22 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+Traceback (most recent call last):
+  File "/scratch/users/k23031260/PyPOTS/pypots/imputation/base.py", line 285, in _train_model
+    results = self.model.forward(inputs)
+  File "/scratch/users/k23031260/PyPOTS/pypots/imputation/bayesian_deari/core.py", line 59, in forward
+    ) = self.model(inputs)
+  File "/scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/users/k23031260/PyPOTS/pypots/nn/modules/bayesian_deari/backbone.py", line 79, in forward
+    ) = super().forward(xdata)
+  File "/scratch/users/k23031260/PyPOTS/pypots/nn/modules/deari/backbone.py", line 172, in forward
+    ) = self.model_b[i](x=x_b, mask=m_b, deltas=d_b, h=hiddens_b)
+  File "/scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/users/k23031260/PyPOTS/pypots/nn/modules/deari/backbone.py", line 65, in forward
+    h = self.transformer_encoder(h)
+  File "/scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/modules/transformer.py", line 387, in forward
+    output = mod(output, src_mask=mask, is_causal=is_causal, src_key_padding_mask=src_key_padding_mask_for_layers)
+  File "/scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/modules/transformer.py", line 708, in forward
+    x = self.norm2(x + self._ff_block(x))
+  File "/scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/modules/transformer.py", line 723, in _ff_block
+    x = self.linear2(self.dropout(self.activation(self.linear1(x))))
+  File "/scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/functional.py", line 1471, in relu
+    result = torch.relu(input)
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 24.00 MiB. GPU 0 has a total capacty of 4.75 GiB of which 12.00 MiB is free. Process 145424 has 1.03 GiB memory in use. Including non-PyTorch memory, this process has 4.72 GiB memory in use. Of the allocated memory 4.55 GiB is allocated by PyTorch, and 73.22 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "bayesian_deari.py", line 146, in <module>
+    results = run_pypots(mode, data)
+  File "bayesian_deari.py", line 85, in run_pypots
+    deari_model.fit(dataset_for_training, dataset_for_validation)
+  File "/scratch/users/k23031260/PyPOTS/pypots/imputation/bayesian_deari/model.py", line 172, in fit
+    self._train_model(train_loader, val_loader)
+  File "/scratch/users/k23031260/PyPOTS/pypots/imputation/base.py", line 373, in _train_model
+    raise RuntimeError(
+RuntimeError: Training got interrupted. Model was not trained. Please investigate the error printed above.

@@ -2,9 +2,9 @@
 
 
 
-#SBATCH --output=/scratch/users/k23031260/PyPOTS/output_logs/Classification_deari.out
-#SBATCH --job-name=deari_classify
-#SBATCH --partition=interruptible_gpu
+#SBATCH --output=/scratch/users/k23031260/PyPOTS/conference_paper_logs/eicu/Classification_deari.out
+#SBATCH --job-name=deari_eicu
+#SBATCH --partition=gpu
 #SBATCH --gres=gpu:1
 #SBATCH --mem=256G
 #SBATCH --signal=USR2

@@ -5,8 +5,8 @@ import numpy as np
 import torch
 import json
 import argparse
-from pypots.classification.deari import DEARI as classify
-from pypots.imputation.deari import DEARI as imputer
+from pypots.classification.bayesian_deari import Bayesian_DEARI as classify
+from pypots.imputation.bayesian_deari import Bayesian_DEARI as imputer
 from pypots.optim import Adam
 from pypots.utils.metrics import calc_mae, calc_mre, calc_binary_classification_metrics
 
@@ -50,27 +50,26 @@ def run_pypots(mode, data):
     dataset_for_training = {"X": data["train"][0], "y": data["train"][1]}
     dataset_for_validation = {"X": data["valid"][0], "y": data["valid"][1]}
     dataset_for_testing = {"X": data["test"][0], "y": data["test"][1]}
-    logger.info('>>>>>>>>>>>>>>>>>>>>>>>>>', data['train'][0].shape)
 
     model_params = {
-        "n_steps": 24,
-        "n_features": 18,
+        "n_steps": 48,
+        "n_features": 35,
         "rnn_hidden_size": 108,
         "imputation_weight": 0.3,
         "consistency_weight": 0.1,
         "removal_percent": 10,
-        "num_encoder_layers": 3,
+        "num_encoder_layers": 1,
         "multi":8,
         "is_gru": True,
         "component_error": True,
-        "model_name": 'Brits_multilayer',
+        "unfreeze_step": 100,
         "batch_size": 64,
-        "epochs": 200,
-        "patience": 3,
-        "optimizer": Adam(lr=0.005, weight_decay=0.00001),
+        "epochs": 50,
+        "patience": 5,
+        "optimizer": Adam(lr=0.0005, weight_decay=0.00001),
         "num_workers": 0,
         "device": torch.device("cuda" if torch.cuda.is_available() else "cpu"),
-        "saving_path": '/scratch/users/k23031260/PyPOTS/classification/deari/eicu',
+        "saving_path": '/scratch/users/k23031260/PyPOTS',
         "model_saving_strategy": "best",
         "verbose": True
     }
@@ -137,11 +136,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     mode = args.mode 
-    data_path = "/scratch/users/k23031260/data/eicu/data_nan.pkl"
-    label_path = "/scratch/users/k23031260/data/eicu/label.pkl"
+    data_path = "/scratch/users/k23031260/data/physionet/data_nan.pkl"
+    label_path = "/scratch/users/k23031260/data/physionet/label.pkl"
 
     all_fold_results = []
-    for fold in range(5):
+    for fold in range(1):
         logger.info(f"\n Fold {fold} started ...................................... \n")
         data = load_data(data_path, label_path, fold)
         results = run_pypots(mode, data)
@@ -149,18 +148,18 @@ if __name__ == "__main__":
         logger.info(f"\n Fold {fold} ended ........................................ \n")
         logger.info(f"\n Fold {fold} Results: \n{json.dumps(results, indent=4)} \n")
 
-    logger.info(f"\n Average performance across all folds.......................... \n")
-    if mode == 'impute':
-        avg_result = {metric: np.mean([fold[metric] for fold in all_fold_results]) for metric in all_fold_results[0].keys()}
-        logger.info(f"\n Imputation performance: \n {avg_result} \n")
-    else:
-        PyPots_evaluation = [{k: v for k,v in fold_result['PyPots_evaluation'].items()} for fold_result in all_fold_results]
-        CSAI_evaluation = [{k: v for k,v in fold_result['CSAI_evaluation'].items()} for fold_result in all_fold_results]
+    # logger.info(f"\n Average performance across all folds.......................... \n")
+    # if mode == 'impute':
+    #     avg_result = {metric: np.mean([fold[metric] for fold in all_fold_results]) for metric in all_fold_results[0].keys()}
+    #     logger.info(f"\n Imputation performance: \n {avg_result} \n")
+    # else:
+    #     PyPots_evaluation = [{k: v for k,v in fold_result['PyPots_evaluation'].items()} for fold_result in all_fold_results]
+    #     CSAI_evaluation = [{k: v for k,v in fold_result['CSAI_evaluation'].items()} for fold_result in all_fold_results]
 
-        avg_result = {metric: np.mean([fold[metric] for fold in PyPots_evaluation]) for metric in PyPots_evaluation[0].keys()}
-        logger.info(f"\n Classification performance using Pypots evaluation: \n {avg_result} \n")
+    #     avg_result = {metric: np.mean([fold[metric] for fold in PyPots_evaluation]) for metric in PyPots_evaluation[0].keys()}
+    #     logger.info(f"\n Classification performance using Pypots evaluation: \n {avg_result} \n")
 
-        avg_result = {metric: np.mean([fold[metric] for fold in CSAI_evaluation]) for metric in CSAI_evaluation[0].keys()}
-        logger.info(f"\n Classification performance using CSAI evaluation: \n {avg_result} \n")
+    #     avg_result = {metric: np.mean([fold[metric] for fold in CSAI_evaluation]) for metric in CSAI_evaluation[0].keys()}
+    #     logger.info(f"\n Classification performance using CSAI evaluation: \n {avg_result} \n")
 
 

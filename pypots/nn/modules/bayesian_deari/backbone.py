@@ -46,13 +46,13 @@ class Backbone_Bayesian_rits_attention(BackboneRITS_attention):
 
 class Bayesian_deari(BackboneDEARI):
     def __init__(self, n_steps, n_features, rnn_hidden_size, num_encoderlayer, component_error, is_gru, multi, device = None):
-        super(Bayesian_deari, self).__init__()
+        super(Bayesian_deari, self).__init__(n_steps, n_features, rnn_hidden_size, num_encoderlayer, component_error, is_gru, multi, device)
         self.multi = multi
         self.device = device
         self.state = None
         params = (n_steps, n_features, rnn_hidden_size, num_encoderlayer, component_error, is_gru, device)
-        self.model_f = nn.ModuleList([Backbone_Bayesian_rits_attention(*params) for i in range(self.args.multi)])
-        self.model_b = nn.ModuleList([Backbone_Bayesian_rits_attention(*params) for i in range(self.args.multi)])
+        self.model_f = nn.ModuleList([Backbone_Bayesian_rits_attention(*params) for i in range(self.multi)])
+        self.model_b = nn.ModuleList([Backbone_Bayesian_rits_attention(*params) for i in range(self.multi)])
 
     def update_states(self, new_state=None):
         if new_state is not None:

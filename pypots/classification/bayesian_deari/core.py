@@ -87,10 +87,10 @@ class _Bayesian_DEARI(nn.Module):
                     f_predictions = torch.sigmoid(f_logits)
                     b_predictions = torch.sigmoid(b_logits)
 
-                    Y_out_f.append(f_logits)
-                    Y_score_f.append(f_predictions)
-                    Y_out_b.append(b_logits)
-                    Y_score_b.append(b_predictions)
+                    Y_out_f.append(f_logits.unsqueeze(dim=-1))
+                    Y_score_f.append(f_predictions.unsqueeze(dim=-1))
+                    Y_out_b.append(b_logits.unsqueeze(dim=-1))
+                    Y_score_b.append(b_predictions.unsqueeze(dim=-1))
 
                 
                 kl /= self.sample_nbr
@@ -148,9 +148,10 @@ class _Bayesian_DEARI(nn.Module):
                 imputed_data = freeze_imputed_data
                 xreg_loss = freeze_reconstruction_loss
                 loss_consistency = freeze_consistency_loss
+                kl_loss = freeze_loss_KL
 
-                f_logits = self.f_classifier(self.dropout(f_hidden_states))
-                b_logits = self.b_classifier(self.dropout(b_hidden_states))
+                f_logits = self.f_classifier(self.dropout(freeze_f_hidden_states))
+                b_logits = self.b_classifier(self.dropout(freeze_b_hidden_states))
                 f_predictions = torch.sigmoid(f_logits)
                 b_predictions = torch.sigmoid(b_logits)
 
@@ -170,6 +171,7 @@ class _Bayesian_DEARI(nn.Module):
                 'classification_loss': classification_loss,
                 'classification_pred': classification_pred
             }
+            self.batch_number += 1
             
         else:
             self.model.update_states('freeze')
@@ -181,6 +183,7 @@ class _Bayesian_DEARI(nn.Module):
             b_hidden_states,
             consistency_loss,
             reconstruction_loss,
+            kl_loss
             ) = self.model(inputs)
 
             f_logits = self.f_classifier(self.dropout(f_hidden_states))

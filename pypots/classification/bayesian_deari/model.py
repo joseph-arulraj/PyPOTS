@@ -166,7 +166,7 @@ class Bayesian_DEARI(BaseNNClassifier):
             consistency_weight=self.consistency_weight,
             classification_weight=self.classification_weight,
             n_classes=self.n_classes,
-            num_encoder_layers=self.num_encoder_layers,
+            num_encoderlayer=self.num_encoder_layers,
             component_error=self.component_error,
             is_gru=self.is_gru,
             multi=self.multi,

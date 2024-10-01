@@ -155,7 +155,7 @@ if __name__ == "__main__":
     label_path = "/scratch/users/k23031260/data/physionet/label.pkl"
 
     all_fold_results = []
-    for fold in range(5):
+    for fold in range(2):
         logger.info(f"\n Fold {fold} started ...................................... \n")
         data = load_data(data_path, label_path, fold)
         results = run_pypots(mode, data)

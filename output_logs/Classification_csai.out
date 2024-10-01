@@ -34,7 +34,7 @@ Also make sure that all modulefiles written in TCL start with the string
 
 
 
-Tue Sep 17 09:56:27 2024       
+Mon Sep 30 13:00:57 2024       
 +---------------------------------------------------------------------------------------+
 | NVIDIA-SMI 535.183.01             Driver Version: 535.183.01   CUDA Version: 12.2     |
 |-----------------------------------------+----------------------+----------------------+
@@ -42,8 +42,8 @@ Tue Sep 17 09:56:27 2024
 | Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
 |                                         |                      |               MIG M. |
 |=========================================+======================+======================|
-|   0  NVIDIA A100-SXM4-40GB          On  | 00000000:B1:00.0 Off |                    0 |
-| N/A   32C    P0              53W / 400W |      0MiB / 40960MiB |      0%      Default |
+|   0  NVIDIA A30                     On  | 00000000:33:00.0 Off |                    0 |
+| N/A   28C    P0              26W / 165W |      0MiB / 24576MiB |      0%      Default |
 |                                         |                      |             Disabled |
 +-----------------------------------------+----------------------+----------------------+
                                                                                          
@@ -54,104 +54,104 @@ Tue Sep 17 09:56:27 2024
 |=======================================================================================|
 |  No running processes found                                                           |
 +---------------------------------------------------------------------------------------+
-/var/lib/slurm/slurmd/job21169180/slurm_script: line 18: activate: No such file or directory
-2024-09-17 09:57:14.121843: I tensorflow/core/util/port.cc:110] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
-2024-09-17 09:57:16.879227: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+/var/lib/slurm/slurmd/job21301379/slurm_script: line 18: activate: No such file or directory
+2024-09-30 13:01:34.366160: I tensorflow/core/util/port.cc:110] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-09-30 13:01:34.435183: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
 To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2024-09-17 09:57:32.405222: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2024-09-30 13:01:48.560860: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
 INFO:__main__:
  Fold 0 started ...................................... 
 
-2024-09-17 09:57:51 [INFO]: Using the given device: cuda
-2024-09-17 09:57:51 [INFO]: Model files will be saved to /scratch/users/k23031260/PyPOTS/20240917_T095751
-2024-09-17 09:57:51 [INFO]: Tensorboard file will be saved to /scratch/users/k23031260/PyPOTS/20240917_T095751/tensorboard
+2024-09-30 13:02:13 [INFO]: Using the given device: cuda
+2024-09-30 13:02:13 [INFO]: Model files will be saved to /scratch/users/k23031260/PyPOTS/20240930_T130213
+2024-09-30 13:02:13 [INFO]: Tensorboard file will be saved to /scratch/users/k23031260/PyPOTS/20240930_T130213/tensorboard
 INFO:__main__:
  Training..................................... 
 
 /scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/modules/transformer.py:282: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)
   warnings.warn(f"enable_nested_tensor is True, but self.use_nested_tensor is False because {why_not_sparsity_fast_path}")
-2024-09-17 09:58:02 [INFO]: CSAI initialized with the given hyperparameters, the number of trainable parameters: 4,767,796
-2024-09-17 09:58:14 [INFO]: Epoch 001 - training loss: 19.7807, validation loss: 17.4065, 
-2024-09-17 09:58:14 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch1_loss17.40648680466872.pypots
-2024-09-17 09:58:20 [INFO]: Epoch 002 - training loss: 15.8806, validation loss: 15.0752, 
-2024-09-17 09:58:20 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch2_loss15.075216293334961.pypots
-2024-09-17 09:58:26 [INFO]: Epoch 003 - training loss: 14.2388, validation loss: 13.9451, 
-2024-09-17 09:58:26 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch3_loss13.945050679720365.pypots
-2024-09-17 09:58:32 [INFO]: Epoch 004 - training loss: 13.3209, validation loss: 13.2000, 
-2024-09-17 09:58:32 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch4_loss13.199980295621431.pypots
-2024-09-17 09:58:38 [INFO]: Epoch 005 - training loss: 12.6731, validation loss: 12.6112, 
-2024-09-17 09:58:38 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch5_loss12.611156683701735.pypots
-2024-09-17 09:58:45 [INFO]: Epoch 006 - training loss: 12.1039, validation loss: 12.0699, 
-2024-09-17 09:58:45 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch6_loss12.06985121506911.pypots
-2024-09-17 09:58:51 [INFO]: Epoch 007 - training loss: 11.6388, validation loss: 11.6350, 
-2024-09-17 09:58:51 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch7_loss11.634982916025015.pypots
-2024-09-17 09:58:57 [INFO]: Epoch 008 - training loss: 11.2486, validation loss: 11.2959, 
-2024-09-17 09:58:57 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch8_loss11.295942599956806.pypots
-2024-09-17 09:59:04 [INFO]: Epoch 009 - training loss: 10.9362, validation loss: 11.0253, 
-2024-09-17 09:59:04 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch9_loss11.025306995098408.pypots
-2024-09-17 09:59:10 [INFO]: Epoch 010 - training loss: 10.7122, validation loss: 10.7963, 
-2024-09-17 09:59:10 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch10_loss10.796308590815617.pypots
-2024-09-17 09:59:17 [INFO]: Epoch 011 - training loss: 10.5013, validation loss: 10.6444, 
-2024-09-17 09:59:17 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch11_loss10.644361936129057.pypots
-2024-09-17 09:59:23 [INFO]: Epoch 012 - training loss: 10.3167, validation loss: 10.4703, 
-2024-09-17 09:59:23 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch12_loss10.47031153165377.pypots
-2024-09-17 09:59:29 [INFO]: Epoch 013 - training loss: 10.1675, validation loss: 10.3392, 
-2024-09-17 09:59:29 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch13_loss10.339180579552284.pypots
-2024-09-17 09:59:35 [INFO]: Epoch 014 - training loss: 9.9804, validation loss: 10.1736, 
-2024-09-17 09:59:35 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch14_loss10.173583104060246.pypots
-2024-09-17 09:59:41 [INFO]: Epoch 015 - training loss: 9.8697, validation loss: 10.0913, 
-2024-09-17 09:59:41 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch15_loss10.091268612788273.pypots
-2024-09-17 09:59:48 [INFO]: Epoch 016 - training loss: 9.7568, validation loss: 9.9932, 
-2024-09-17 09:59:48 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch16_loss9.993237568781925.pypots
-2024-09-17 09:59:54 [INFO]: Epoch 017 - training loss: 9.6479, validation loss: 9.9108, 
-2024-09-17 09:59:54 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch17_loss9.91077415759747.pypots
-2024-09-17 10:00:00 [INFO]: Epoch 018 - training loss: 9.5824, validation loss: 9.8720, 
-2024-09-17 10:00:00 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch18_loss9.871962327223558.pypots
-2024-09-17 10:00:06 [INFO]: Epoch 019 - training loss: 9.4965, validation loss: 9.8104, 
-2024-09-17 10:00:06 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch19_loss9.810439036442684.pypots
-2024-09-17 10:00:13 [INFO]: Epoch 020 - training loss: 9.4414, validation loss: 9.7656, 
-2024-09-17 10:00:13 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch20_loss9.765566899226261.pypots
-2024-09-17 10:00:19 [INFO]: Epoch 021 - training loss: 9.3945, validation loss: 9.6977, 
-2024-09-17 10:00:19 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch21_loss9.69769103710468.pypots
-2024-09-17 10:00:25 [INFO]: Epoch 022 - training loss: 9.3055, validation loss: 9.6613, 
-2024-09-17 10:00:25 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch22_loss9.661296917841984.pypots
-2024-09-17 10:00:32 [INFO]: Epoch 023 - training loss: 9.2309, validation loss: 9.6293, 
-2024-09-17 10:00:32 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch23_loss9.629327920766977.pypots
-2024-09-17 10:00:38 [INFO]: Epoch 024 - training loss: 9.1757, validation loss: 9.6109, 
-2024-09-17 10:00:38 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch24_loss9.610921639662523.pypots
-2024-09-17 10:00:44 [INFO]: Epoch 025 - training loss: 9.1358, validation loss: 9.5644, 
-2024-09-17 10:00:44 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch25_loss9.564402360182543.pypots
-2024-09-17 10:00:50 [INFO]: Epoch 026 - training loss: 9.1092, validation loss: 9.5403, 
-2024-09-17 10:00:50 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch26_loss9.540326998783993.pypots
-2024-09-17 10:00:56 [INFO]: Epoch 027 - training loss: 9.0338, validation loss: 9.5156, 
-2024-09-17 10:00:56 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch27_loss9.515637251046988.pypots
-2024-09-17 10:01:03 [INFO]: Epoch 028 - training loss: 9.0119, validation loss: 9.4566, 
-2024-09-17 10:01:03 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch28_loss9.456630926865797.pypots
-2024-09-17 10:01:09 [INFO]: Epoch 029 - training loss: 8.9366, validation loss: 9.5210, 
-2024-09-17 10:01:15 [INFO]: Epoch 030 - training loss: 8.9097, validation loss: 9.5252, 
-2024-09-17 10:01:21 [INFO]: Epoch 031 - training loss: 8.8762, validation loss: 9.4787, 
-2024-09-17 10:01:27 [INFO]: Epoch 032 - training loss: 8.8625, validation loss: 9.5744, 
-2024-09-17 10:01:34 [INFO]: Epoch 033 - training loss: 8.7761, validation loss: 9.4312, 
-2024-09-17 10:01:34 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch33_loss9.431176919203539.pypots
-2024-09-17 10:01:40 [INFO]: Epoch 034 - training loss: 8.7400, validation loss: 9.4253, 
-2024-09-17 10:01:40 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch34_loss9.42526333148663.pypots
-2024-09-17 10:01:46 [INFO]: Epoch 035 - training loss: 8.6904, validation loss: 9.4337, 
-2024-09-17 10:01:53 [INFO]: Epoch 036 - training loss: 8.6503, validation loss: 9.4579, 
-2024-09-17 10:01:59 [INFO]: Epoch 037 - training loss: 8.6354, validation loss: 9.3541, 
-2024-09-17 10:01:59 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch37_loss9.354080493633564.pypots
-2024-09-17 10:02:05 [INFO]: Epoch 038 - training loss: 8.5746, validation loss: 9.4399, 
-2024-09-17 10:02:11 [INFO]: Epoch 039 - training loss: 8.5470, validation loss: 9.3686, 
-2024-09-17 10:02:17 [INFO]: Epoch 040 - training loss: 8.4752, validation loss: 9.4140, 
-2024-09-17 10:02:23 [INFO]: Epoch 041 - training loss: 8.4265, validation loss: 9.3396, 
-2024-09-17 10:02:23 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI_epoch41_loss9.339566377493052.pypots
-2024-09-17 10:02:30 [INFO]: Epoch 042 - training loss: 8.4151, validation loss: 9.4365, 
-2024-09-17 10:02:36 [INFO]: Epoch 043 - training loss: 8.4129, validation loss: 9.4142, 
-2024-09-17 10:02:42 [INFO]: Epoch 044 - training loss: 8.3762, validation loss: 9.4185, 
-2024-09-17 10:02:48 [INFO]: Epoch 045 - training loss: 8.3431, validation loss: 9.4997, 
-2024-09-17 10:02:54 [INFO]: Epoch 046 - training loss: 8.3111, validation loss: 9.5339, 
-2024-09-17 10:02:54 [INFO]: Exceeded the training patience. Terminating the training procedure...
-2024-09-17 10:02:54 [INFO]: Finished training. The best model is from epoch#41.
-2024-09-17 10:02:54 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T095751/CSAI.pypots
+2024-09-30 13:02:24 [INFO]: CSAI initialized with the given hyperparameters, the number of trainable parameters: 4,767,796
+2024-09-30 13:02:34 [INFO]: Epoch 001 - training loss: 19.7841, validation loss: 17.4207, 
+2024-09-30 13:02:34 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch1_loss17.420660459078274.pypots
+2024-09-30 13:02:40 [INFO]: Epoch 002 - training loss: 15.8779, validation loss: 15.0628, 
+2024-09-30 13:02:40 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch2_loss15.06283349257249.pypots
+2024-09-30 13:02:46 [INFO]: Epoch 003 - training loss: 14.2243, validation loss: 13.9287, 
+2024-09-30 13:02:46 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch3_loss13.928676018348106.pypots
+2024-09-30 13:02:51 [INFO]: Epoch 004 - training loss: 13.3091, validation loss: 13.2144, 
+2024-09-30 13:02:52 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch4_loss13.214360603919395.pypots
+2024-09-30 13:02:57 [INFO]: Epoch 005 - training loss: 12.7291, validation loss: 12.6327, 
+2024-09-30 13:02:57 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch5_loss12.632667761582594.pypots
+2024-09-30 13:03:03 [INFO]: Epoch 006 - training loss: 12.1364, validation loss: 12.1036, 
+2024-09-30 13:03:03 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch6_loss12.10359580700214.pypots
+2024-09-30 13:03:09 [INFO]: Epoch 007 - training loss: 11.6622, validation loss: 11.6550, 
+2024-09-30 13:03:09 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch7_loss11.654967161325308.pypots
+2024-09-30 13:03:14 [INFO]: Epoch 008 - training loss: 11.2788, validation loss: 11.3395, 
+2024-09-30 13:03:14 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch8_loss11.339509010314941.pypots
+2024-09-30 13:03:20 [INFO]: Epoch 009 - training loss: 10.9642, validation loss: 11.0479, 
+2024-09-30 13:03:20 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch9_loss11.047900126530575.pypots
+2024-09-30 13:03:26 [INFO]: Epoch 010 - training loss: 10.7527, validation loss: 10.8286, 
+2024-09-30 13:03:26 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch10_loss10.828621864318848.pypots
+2024-09-30 13:03:32 [INFO]: Epoch 011 - training loss: 10.5116, validation loss: 10.6546, 
+2024-09-30 13:03:32 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch11_loss10.65457608149602.pypots
+2024-09-30 13:03:37 [INFO]: Epoch 012 - training loss: 10.3206, validation loss: 10.4683, 
+2024-09-30 13:03:37 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch12_loss10.468295537508451.pypots
+2024-09-30 13:03:43 [INFO]: Epoch 013 - training loss: 10.1400, validation loss: 10.3309, 
+2024-09-30 13:03:43 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch13_loss10.33094809605525.pypots
+2024-09-30 13:03:49 [INFO]: Epoch 014 - training loss: 9.9923, validation loss: 10.1938, 
+2024-09-30 13:03:49 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch14_loss10.19379843198336.pypots
+2024-09-30 13:03:55 [INFO]: Epoch 015 - training loss: 9.8722, validation loss: 10.1024, 
+2024-09-30 13:03:55 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch15_loss10.102429096515362.pypots
+2024-09-30 13:04:00 [INFO]: Epoch 016 - training loss: 9.7695, validation loss: 10.0055, 
+2024-09-30 13:04:00 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch16_loss10.00553791339581.pypots
+2024-09-30 13:04:06 [INFO]: Epoch 017 - training loss: 9.6523, validation loss: 9.9421, 
+2024-09-30 13:04:06 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch17_loss9.942093555743877.pypots
+2024-09-30 13:04:12 [INFO]: Epoch 018 - training loss: 9.5725, validation loss: 9.8511, 
+2024-09-30 13:04:12 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch18_loss9.851130705613356.pypots
+2024-09-30 13:04:17 [INFO]: Epoch 019 - training loss: 9.4870, validation loss: 9.8034, 
+2024-09-30 13:04:17 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch19_loss9.803419773395245.pypots
+2024-09-30 13:04:23 [INFO]: Epoch 020 - training loss: 9.4416, validation loss: 9.7671, 
+2024-09-30 13:04:23 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch20_loss9.767130118149977.pypots
+2024-09-30 13:04:29 [INFO]: Epoch 021 - training loss: 9.4066, validation loss: 9.7373, 
+2024-09-30 13:04:29 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch21_loss9.737323320828951.pypots
+2024-09-30 13:04:35 [INFO]: Epoch 022 - training loss: 9.3231, validation loss: 9.6803, 
+2024-09-30 13:04:35 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch22_loss9.680254055903507.pypots
+2024-09-30 13:04:40 [INFO]: Epoch 023 - training loss: 9.2673, validation loss: 9.6422, 
+2024-09-30 13:04:40 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch23_loss9.642245512742262.pypots
+2024-09-30 13:04:46 [INFO]: Epoch 024 - training loss: 9.2078, validation loss: 9.6379, 
+2024-09-30 13:04:46 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch24_loss9.637927348797138.pypots
+2024-09-30 13:04:52 [INFO]: Epoch 025 - training loss: 9.1765, validation loss: 9.5919, 
+2024-09-30 13:04:52 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch25_loss9.591949169452374.pypots
+2024-09-30 13:04:58 [INFO]: Epoch 026 - training loss: 9.1406, validation loss: 9.6122, 
+2024-09-30 13:05:04 [INFO]: Epoch 027 - training loss: 9.0587, validation loss: 9.5196, 
+2024-09-30 13:05:04 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch27_loss9.519574898939867.pypots
+2024-09-30 13:05:09 [INFO]: Epoch 028 - training loss: 9.0256, validation loss: 9.4666, 
+2024-09-30 13:05:10 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch28_loss9.4666318159837.pypots
+2024-09-30 13:05:15 [INFO]: Epoch 029 - training loss: 8.9688, validation loss: 9.5281, 
+2024-09-30 13:05:21 [INFO]: Epoch 030 - training loss: 8.9142, validation loss: 9.5078, 
+2024-09-30 13:05:27 [INFO]: Epoch 031 - training loss: 8.8729, validation loss: 9.4888, 
+2024-09-30 13:05:33 [INFO]: Epoch 032 - training loss: 8.8471, validation loss: 9.5269, 
+2024-09-30 13:05:39 [INFO]: Epoch 033 - training loss: 8.7919, validation loss: 9.4063, 
+2024-09-30 13:05:39 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch33_loss9.406336490924541.pypots
+2024-09-30 13:05:45 [INFO]: Epoch 034 - training loss: 8.7587, validation loss: 9.4715, 
+2024-09-30 13:05:51 [INFO]: Epoch 035 - training loss: 8.7191, validation loss: 9.4456, 
+2024-09-30 13:05:57 [INFO]: Epoch 036 - training loss: 8.6849, validation loss: 9.4124, 
+2024-09-30 13:06:02 [INFO]: Epoch 037 - training loss: 8.6545, validation loss: 9.3960, 
+2024-09-30 13:06:03 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch37_loss9.395959047170786.pypots
+2024-09-30 13:06:09 [INFO]: Epoch 038 - training loss: 8.6079, validation loss: 9.3911, 
+2024-09-30 13:06:09 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch38_loss9.391091200021597.pypots
+2024-09-30 13:06:15 [INFO]: Epoch 039 - training loss: 8.5792, validation loss: 9.3902, 
+2024-09-30 13:06:15 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch39_loss9.390184842623198.pypots
+2024-09-30 13:06:21 [INFO]: Epoch 040 - training loss: 8.5016, validation loss: 9.4379, 
+2024-09-30 13:06:27 [INFO]: Epoch 041 - training loss: 8.4545, validation loss: 9.3339, 
+2024-09-30 13:06:27 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI_epoch41_loss9.33385944366455.pypots
+2024-09-30 13:06:33 [INFO]: Epoch 042 - training loss: 8.4247, validation loss: 9.3954, 
+2024-09-30 13:06:39 [INFO]: Epoch 043 - training loss: 8.4742, validation loss: 9.4166, 
+2024-09-30 13:06:45 [INFO]: Epoch 044 - training loss: 8.3775, validation loss: 9.3943, 
+2024-09-30 13:06:51 [INFO]: Epoch 045 - training loss: 8.4247, validation loss: 9.5051, 
+2024-09-30 13:06:57 [INFO]: Epoch 046 - training loss: 8.3740, validation loss: 9.4850, 
+2024-09-30 13:06:57 [INFO]: Exceeded the training patience. Terminating the training procedure...
+2024-09-30 13:06:57 [INFO]: Finished training. The best model is from epoch#41.
+2024-09-30 13:06:57 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130213/CSAI.pypots
 INFO:__main__:
  Testing...................................... 
 
@@ -162,112 +162,106 @@ INFO:__main__:
  Fold 0 Results: 
 {
     "PyPots_evaluation": {
-        "ROC_AUC": 0.7995388669301713,
-        "PR_AUC": 0.3992252026078284,
-        "F1": 0.3373493975903614,
-        "Precision": 0.5,
-        "Recall": 0.2545454545454545
+        "ROC_AUC": 0.8047299077733859,
+        "PR_AUC": 0.40029207427324537,
+        "F1": 0.3018867924528302,
+        "Precision": 0.4897959183673469,
+        "Recall": 0.21818181818181817
     },
     "CSAI_evaluation": {
-        "ACC": 0.8625,
-        "AUC": 0.7995388669301713,
-        "Prec_Macro": 0.6948924731182795,
-        "Recall_Macro": 0.6069828722002635,
-        "F1_Macro": 0.6303204449597554,
-        "Bal_ACC": 0.6069828722002635
+        "ACC": 0.86125,
+        "AUC": 0.8047299077733859,
+        "Prec_Macro": 0.6876409685045789,
+        "Recall_Macro": 0.5909749670619235,
+        "F1_Macro": 0.6124284760321056,
+        "Bal_ACC": 0.5909749670619235
     }
 } 
 
 INFO:__main__:
  Fold 1 started ...................................... 
 
-2024-09-17 10:02:58 [INFO]: Using the given device: cuda
-2024-09-17 10:02:58 [INFO]: Model files will be saved to /scratch/users/k23031260/PyPOTS/20240917_T100258
-2024-09-17 10:02:58 [INFO]: Tensorboard file will be saved to /scratch/users/k23031260/PyPOTS/20240917_T100258/tensorboard
+2024-09-30 13:07:01 [INFO]: Using the given device: cuda
+2024-09-30 13:07:01 [INFO]: Model files will be saved to /scratch/users/k23031260/PyPOTS/20240930_T130701
+2024-09-30 13:07:01 [INFO]: Tensorboard file will be saved to /scratch/users/k23031260/PyPOTS/20240930_T130701/tensorboard
 INFO:__main__:
  Training..................................... 
 
 /scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/modules/transformer.py:282: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)
   warnings.warn(f"enable_nested_tensor is True, but self.use_nested_tensor is False because {why_not_sparsity_fast_path}")
-2024-09-17 10:03:07 [INFO]: CSAI initialized with the given hyperparameters, the number of trainable parameters: 4,767,796
-2024-09-17 10:03:13 [INFO]: Epoch 001 - training loss: 19.7967, validation loss: 17.3187, 
-2024-09-17 10:03:13 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch1_loss17.318720157329853.pypots
-2024-09-17 10:03:20 [INFO]: Epoch 002 - training loss: 15.8779, validation loss: 14.8918, 
-2024-09-17 10:03:20 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch2_loss14.89180931678185.pypots
-2024-09-17 10:03:26 [INFO]: Epoch 003 - training loss: 14.2688, validation loss: 13.7852, 
-2024-09-17 10:03:26 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch3_loss13.785218532268818.pypots
-2024-09-17 10:03:32 [INFO]: Epoch 004 - training loss: 13.3389, validation loss: 13.0810, 
-2024-09-17 10:03:32 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch4_loss13.081010378324068.pypots
-2024-09-17 10:03:38 [INFO]: Epoch 005 - training loss: 12.6693, validation loss: 12.4949, 
-2024-09-17 10:03:38 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch5_loss12.494853166433481.pypots
-2024-09-17 10:03:44 [INFO]: Epoch 006 - training loss: 12.1205, validation loss: 11.9958, 
-2024-09-17 10:03:44 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch6_loss11.995783145611103.pypots
-2024-09-17 10:03:51 [INFO]: Epoch 007 - training loss: 11.6451, validation loss: 11.5644, 
-2024-09-17 10:03:51 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch7_loss11.56440412081205.pypots
-2024-09-17 10:03:57 [INFO]: Epoch 008 - training loss: 11.2557, validation loss: 11.2614, 
-2024-09-17 10:03:57 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch8_loss11.261366624098558.pypots
-2024-09-17 10:04:03 [INFO]: Epoch 009 - training loss: 10.9481, validation loss: 11.0042, 
-2024-09-17 10:04:03 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch9_loss11.004156112670898.pypots
-2024-09-17 10:04:10 [INFO]: Epoch 010 - training loss: 10.7181, validation loss: 10.8208, 
-2024-09-17 10:04:10 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch10_loss10.820802835317759.pypots
-2024-09-17 10:04:16 [INFO]: Epoch 011 - training loss: 10.5417, validation loss: 10.6220, 
-2024-09-17 10:04:16 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch11_loss10.622022335345928.pypots
-2024-09-17 10:04:22 [INFO]: Epoch 012 - training loss: 10.3553, validation loss: 10.4603, 
-2024-09-17 10:04:22 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch12_loss10.460264646089994.pypots
-2024-09-17 10:04:28 [INFO]: Epoch 013 - training loss: 10.1841, validation loss: 10.3431, 
-2024-09-17 10:04:29 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch13_loss10.34308308821458.pypots
-2024-09-17 10:04:35 [INFO]: Epoch 014 - training loss: 10.0545, validation loss: 10.2658, 
-2024-09-17 10:04:35 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch14_loss10.265820503234863.pypots
-2024-09-17 10:04:41 [INFO]: Epoch 015 - training loss: 9.9311, validation loss: 10.0603, 
-2024-09-17 10:04:41 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch15_loss10.060322027940016.pypots
-2024-09-17 10:04:47 [INFO]: Epoch 016 - training loss: 9.7788, validation loss: 10.0264, 
-2024-09-17 10:04:47 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch16_loss10.02637400993934.pypots
-2024-09-17 10:04:53 [INFO]: Epoch 017 - training loss: 9.6684, validation loss: 9.9247, 
-2024-09-17 10:04:53 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch17_loss9.924691567054161.pypots
-2024-09-17 10:05:00 [INFO]: Epoch 018 - training loss: 9.6017, validation loss: 9.8658, 
-2024-09-17 10:05:00 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch18_loss9.865809807410606.pypots
-2024-09-17 10:05:06 [INFO]: Epoch 019 - training loss: 9.5405, validation loss: 9.8448, 
-2024-09-17 10:05:06 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch19_loss9.84476823073167.pypots
-2024-09-17 10:05:12 [INFO]: Epoch 020 - training loss: 9.4680, validation loss: 9.7495, 
-2024-09-17 10:05:12 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch20_loss9.749542749845064.pypots
-2024-09-17 10:05:18 [INFO]: Epoch 021 - training loss: 9.3871, validation loss: 9.7248, 
-2024-09-17 10:05:18 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch21_loss9.724787418658916.pypots
-2024-09-17 10:05:25 [INFO]: Epoch 022 - training loss: 9.3248, validation loss: 9.7194, 
-2024-09-17 10:05:25 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch22_loss9.71939989236685.pypots
-2024-09-17 10:05:31 [INFO]: Epoch 023 - training loss: 9.2842, validation loss: 9.6746, 
-2024-09-17 10:05:31 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch23_loss9.674552770761343.pypots
-2024-09-17 10:05:37 [INFO]: Epoch 024 - training loss: 9.2209, validation loss: 9.6690, 
-2024-09-17 10:05:37 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch24_loss9.66898382627047.pypots
-2024-09-17 10:05:44 [INFO]: Epoch 025 - training loss: 9.1616, validation loss: 9.5907, 
-2024-09-17 10:05:44 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch25_loss9.590650778550367.pypots
-2024-09-17 10:05:50 [INFO]: Epoch 026 - training loss: 9.1038, validation loss: 9.6061, 
-2024-09-17 10:05:56 [INFO]: Epoch 027 - training loss: 9.0841, validation loss: 9.5433, 
-2024-09-17 10:05:56 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch27_loss9.543258006756123.pypots
-2024-09-17 10:06:02 [INFO]: Epoch 028 - training loss: 9.0434, validation loss: 9.5538, 
-2024-09-17 10:06:08 [INFO]: Epoch 029 - training loss: 8.9729, validation loss: 9.5353, 
-2024-09-17 10:06:08 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch29_loss9.535286756662222.pypots
-2024-09-17 10:06:15 [INFO]: Epoch 030 - training loss: 8.9708, validation loss: 9.5522, 
-2024-09-17 10:06:21 [INFO]: Epoch 031 - training loss: 8.8947, validation loss: 9.5245, 
-2024-09-17 10:06:21 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch31_loss9.524456977844238.pypots
-2024-09-17 10:06:27 [INFO]: Epoch 032 - training loss: 8.8285, validation loss: 9.5667, 
-2024-09-17 10:06:33 [INFO]: Epoch 033 - training loss: 8.8717, validation loss: 9.5206, 
-2024-09-17 10:06:33 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch33_loss9.520558137160082.pypots
-2024-09-17 10:06:40 [INFO]: Epoch 034 - training loss: 8.7992, validation loss: 9.5036, 
-2024-09-17 10:06:40 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch34_loss9.503585595351.pypots
-2024-09-17 10:06:46 [INFO]: Epoch 035 - training loss: 8.7754, validation loss: 9.4924, 
-2024-09-17 10:06:46 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch35_loss9.492383663470928.pypots
-2024-09-17 10:06:52 [INFO]: Epoch 036 - training loss: 8.7460, validation loss: 9.4812, 
-2024-09-17 10:06:52 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch36_loss9.481225894047665.pypots
-2024-09-17 10:06:59 [INFO]: Epoch 037 - training loss: 8.6845, validation loss: 9.4173, 
-2024-09-17 10:06:59 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI_epoch37_loss9.41731203519381.pypots
-2024-09-17 10:07:05 [INFO]: Epoch 038 - training loss: 8.6502, validation loss: 9.5127, 
-2024-09-17 10:07:11 [INFO]: Epoch 039 - training loss: 8.6388, validation loss: 9.5075, 
-2024-09-17 10:07:17 [INFO]: Epoch 040 - training loss: 8.5932, validation loss: 9.4296, 
-2024-09-17 10:07:23 [INFO]: Epoch 041 - training loss: 8.5601, validation loss: 9.4207, 
-2024-09-17 10:07:29 [INFO]: Epoch 042 - training loss: 8.5133, validation loss: 9.4472, 
-2024-09-17 10:07:29 [INFO]: Exceeded the training patience. Terminating the training procedure...
-2024-09-17 10:07:29 [INFO]: Finished training. The best model is from epoch#37.
-2024-09-17 10:07:30 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100258/CSAI.pypots
+2024-09-30 13:07:10 [INFO]: CSAI initialized with the given hyperparameters, the number of trainable parameters: 4,767,796
+2024-09-30 13:07:16 [INFO]: Epoch 001 - training loss: 19.8032, validation loss: 17.3142, 
+2024-09-30 13:07:16 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch1_loss17.31419900747446.pypots
+2024-09-30 13:07:22 [INFO]: Epoch 002 - training loss: 15.8846, validation loss: 14.8958, 
+2024-09-30 13:07:22 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch2_loss14.895823772136982.pypots
+2024-09-30 13:07:28 [INFO]: Epoch 003 - training loss: 14.2551, validation loss: 13.7722, 
+2024-09-30 13:07:28 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch3_loss13.772189507117638.pypots
+2024-09-30 13:07:34 [INFO]: Epoch 004 - training loss: 13.3132, validation loss: 13.0526, 
+2024-09-30 13:07:34 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch4_loss13.05257958632249.pypots
+2024-09-30 13:07:40 [INFO]: Epoch 005 - training loss: 12.6476, validation loss: 12.4817, 
+2024-09-30 13:07:41 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch5_loss12.481712341308594.pypots
+2024-09-30 13:07:47 [INFO]: Epoch 006 - training loss: 12.1059, validation loss: 11.9515, 
+2024-09-30 13:07:47 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch6_loss11.951510942899263.pypots
+2024-09-30 13:07:53 [INFO]: Epoch 007 - training loss: 11.6353, validation loss: 11.5494, 
+2024-09-30 13:07:53 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch7_loss11.549441997821514.pypots
+2024-09-30 13:07:59 [INFO]: Epoch 008 - training loss: 11.2449, validation loss: 11.2392, 
+2024-09-30 13:07:59 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch8_loss11.239244534419132.pypots
+2024-09-30 13:08:05 [INFO]: Epoch 009 - training loss: 10.9564, validation loss: 11.0230, 
+2024-09-30 13:08:05 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch9_loss11.022955821110653.pypots
+2024-09-30 13:08:11 [INFO]: Epoch 010 - training loss: 10.7335, validation loss: 10.8447, 
+2024-09-30 13:08:11 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch10_loss10.844733311579777.pypots
+2024-09-30 13:08:17 [INFO]: Epoch 011 - training loss: 10.5505, validation loss: 10.6419, 
+2024-09-30 13:08:17 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch11_loss10.641903437100924.pypots
+2024-09-30 13:08:23 [INFO]: Epoch 012 - training loss: 10.3638, validation loss: 10.4945, 
+2024-09-30 13:08:23 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch12_loss10.49454483619103.pypots
+2024-09-30 13:08:29 [INFO]: Epoch 013 - training loss: 10.1964, validation loss: 10.3296, 
+2024-09-30 13:08:29 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch13_loss10.32963019150954.pypots
+2024-09-30 13:08:35 [INFO]: Epoch 014 - training loss: 10.0380, validation loss: 10.2142, 
+2024-09-30 13:08:35 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch14_loss10.214193490835337.pypots
+2024-09-30 13:08:41 [INFO]: Epoch 015 - training loss: 9.9033, validation loss: 10.0747, 
+2024-09-30 13:08:41 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch15_loss10.074705343980055.pypots
+2024-09-30 13:08:47 [INFO]: Epoch 016 - training loss: 9.7719, validation loss: 10.0090, 
+2024-09-30 13:08:47 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch16_loss10.009009214547964.pypots
+2024-09-30 13:08:53 [INFO]: Epoch 017 - training loss: 9.6862, validation loss: 9.9488, 
+2024-09-30 13:08:53 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch17_loss9.948810504033016.pypots
+2024-09-30 13:08:59 [INFO]: Epoch 018 - training loss: 9.6027, validation loss: 9.8490, 
+2024-09-30 13:08:59 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch18_loss9.849006506112906.pypots
+2024-09-30 13:09:05 [INFO]: Epoch 019 - training loss: 9.5319, validation loss: 9.8330, 
+2024-09-30 13:09:05 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch19_loss9.832960789020245.pypots
+2024-09-30 13:09:11 [INFO]: Epoch 020 - training loss: 9.4490, validation loss: 9.7496, 
+2024-09-30 13:09:11 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch20_loss9.74962542607234.pypots
+2024-09-30 13:09:17 [INFO]: Epoch 021 - training loss: 9.3999, validation loss: 9.7583, 
+2024-09-30 13:09:23 [INFO]: Epoch 022 - training loss: 9.3352, validation loss: 9.7691, 
+2024-09-30 13:09:29 [INFO]: Epoch 023 - training loss: 9.2948, validation loss: 9.6562, 
+2024-09-30 13:09:29 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch23_loss9.656242810762846.pypots
+2024-09-30 13:09:35 [INFO]: Epoch 024 - training loss: 9.2129, validation loss: 9.6878, 
+2024-09-30 13:09:41 [INFO]: Epoch 025 - training loss: 9.1699, validation loss: 9.6089, 
+2024-09-30 13:09:41 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch25_loss9.608927800105167.pypots
+2024-09-30 13:09:47 [INFO]: Epoch 026 - training loss: 9.1219, validation loss: 9.6028, 
+2024-09-30 13:09:47 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch26_loss9.602808072016789.pypots
+2024-09-30 13:09:53 [INFO]: Epoch 027 - training loss: 9.0951, validation loss: 9.5495, 
+2024-09-30 13:09:53 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch27_loss9.549491882324219.pypots
+2024-09-30 13:09:59 [INFO]: Epoch 028 - training loss: 9.0261, validation loss: 9.5628, 
+2024-09-30 13:10:05 [INFO]: Epoch 029 - training loss: 8.9710, validation loss: 9.5727, 
+2024-09-30 13:10:11 [INFO]: Epoch 030 - training loss: 8.9564, validation loss: 9.5216, 
+2024-09-30 13:10:11 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch30_loss9.521608205942007.pypots
+2024-09-30 13:10:17 [INFO]: Epoch 031 - training loss: 8.9077, validation loss: 9.5343, 
+2024-09-30 13:10:23 [INFO]: Epoch 032 - training loss: 8.8566, validation loss: 9.6099, 
+2024-09-30 13:10:29 [INFO]: Epoch 033 - training loss: 8.8509, validation loss: 9.5071, 
+2024-09-30 13:10:29 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch33_loss9.507087707519531.pypots
+2024-09-30 13:10:35 [INFO]: Epoch 034 - training loss: 8.7955, validation loss: 9.5099, 
+2024-09-30 13:10:41 [INFO]: Epoch 035 - training loss: 8.7403, validation loss: 9.5165, 
+2024-09-30 13:10:47 [INFO]: Epoch 036 - training loss: 8.7510, validation loss: 9.5512, 
+2024-09-30 13:10:53 [INFO]: Epoch 037 - training loss: 8.6869, validation loss: 9.4323, 
+2024-09-30 13:10:53 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI_epoch37_loss9.432338421161358.pypots
+2024-09-30 13:10:59 [INFO]: Epoch 038 - training loss: 8.6459, validation loss: 9.4692, 
+2024-09-30 13:11:05 [INFO]: Epoch 039 - training loss: 8.6137, validation loss: 9.5026, 
+2024-09-30 13:11:11 [INFO]: Epoch 040 - training loss: 8.6230, validation loss: 9.5068, 
+2024-09-30 13:11:17 [INFO]: Epoch 041 - training loss: 8.6073, validation loss: 9.5020, 
+2024-09-30 13:11:23 [INFO]: Epoch 042 - training loss: 8.5679, validation loss: 9.4769, 
+2024-09-30 13:11:23 [INFO]: Exceeded the training patience. Terminating the training procedure...
+2024-09-30 13:11:23 [INFO]: Finished training. The best model is from epoch#37.
+2024-09-30 13:11:23 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240930_T130701/CSAI.pypots
 INFO:__main__:
  Testing...................................... 
 
@@ -278,357 +272,19 @@ INFO:__main__:
  Fold 1 Results: 
 {
     "PyPots_evaluation": {
-        "ROC_AUC": 0.799941976127321,
-        "PR_AUC": 0.4459733016884416,
-        "F1": 0.41509433962264153,
-        "Precision": 0.6,
-        "Recall": 0.3173076923076923
+        "ROC_AUC": 0.8139920424403184,
+        "PR_AUC": 0.4379837804106118,
+        "F1": 0.41379310344827586,
+        "Precision": 0.42424242424242425,
+        "Recall": 0.40384615384615385
     },
     "CSAI_evaluation": {
-        "ACC": 0.88375,
-        "AUC": 0.799941976127321,
-        "Prec_Macro": 0.7523489932885906,
-        "Recall_Macro": 0.6428492484526966,
-        "F1_Macro": 0.6752779123512236,
-        "Bal_ACC": 0.6428492484526966
-    }
-} 
-
-INFO:__main__:
- Fold 2 started ...................................... 
-
-2024-09-17 10:07:33 [INFO]: Using the given device: cuda
-2024-09-17 10:07:33 [INFO]: Model files will be saved to /scratch/users/k23031260/PyPOTS/20240917_T100733
-2024-09-17 10:07:33 [INFO]: Tensorboard file will be saved to /scratch/users/k23031260/PyPOTS/20240917_T100733/tensorboard
-INFO:__main__:
- Training..................................... 
-
-/scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/modules/transformer.py:282: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)
-  warnings.warn(f"enable_nested_tensor is True, but self.use_nested_tensor is False because {why_not_sparsity_fast_path}")
-2024-09-17 10:07:42 [INFO]: CSAI initialized with the given hyperparameters, the number of trainable parameters: 4,767,796
-2024-09-17 10:07:48 [INFO]: Epoch 001 - training loss: 19.7577, validation loss: 17.3812, 
-2024-09-17 10:07:48 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch1_loss17.381181716918945.pypots
-2024-09-17 10:07:54 [INFO]: Epoch 002 - training loss: 15.8690, validation loss: 14.9875, 
-2024-09-17 10:07:55 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch2_loss14.98754435319167.pypots
-2024-09-17 10:08:01 [INFO]: Epoch 003 - training loss: 14.2289, validation loss: 13.8678, 
-2024-09-17 10:08:01 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch3_loss13.867840913625864.pypots
-2024-09-17 10:08:07 [INFO]: Epoch 004 - training loss: 13.2973, validation loss: 13.1523, 
-2024-09-17 10:08:07 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch4_loss13.152261954087477.pypots
-2024-09-17 10:08:13 [INFO]: Epoch 005 - training loss: 12.6517, validation loss: 12.5940, 
-2024-09-17 10:08:14 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch5_loss12.59396743774414.pypots
-2024-09-17 10:08:20 [INFO]: Epoch 006 - training loss: 12.1009, validation loss: 12.0855, 
-2024-09-17 10:08:20 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch6_loss12.085455087515024.pypots
-2024-09-17 10:08:26 [INFO]: Epoch 007 - training loss: 11.6179, validation loss: 11.7036, 
-2024-09-17 10:08:26 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch7_loss11.703573373647837.pypots
-2024-09-17 10:08:32 [INFO]: Epoch 008 - training loss: 11.2403, validation loss: 11.3373, 
-2024-09-17 10:08:32 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch8_loss11.337257458613468.pypots
-2024-09-17 10:08:38 [INFO]: Epoch 009 - training loss: 10.9343, validation loss: 11.0965, 
-2024-09-17 10:08:38 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch9_loss11.096455280597393.pypots
-2024-09-17 10:08:45 [INFO]: Epoch 010 - training loss: 10.6777, validation loss: 10.8917, 
-2024-09-17 10:08:45 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch10_loss10.891671180725098.pypots
-2024-09-17 10:08:51 [INFO]: Epoch 011 - training loss: 10.4852, validation loss: 10.6965, 
-2024-09-17 10:08:51 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch11_loss10.696542299710787.pypots
-2024-09-17 10:08:57 [INFO]: Epoch 012 - training loss: 10.2852, validation loss: 10.5374, 
-2024-09-17 10:08:57 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch12_loss10.53742423424354.pypots
-2024-09-17 10:09:03 [INFO]: Epoch 013 - training loss: 10.0901, validation loss: 10.4155, 
-2024-09-17 10:09:03 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch13_loss10.415494258587177.pypots
-2024-09-17 10:09:09 [INFO]: Epoch 014 - training loss: 9.9422, validation loss: 10.2832, 
-2024-09-17 10:09:10 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch14_loss10.283177302433895.pypots
-2024-09-17 10:09:16 [INFO]: Epoch 015 - training loss: 9.8247, validation loss: 10.1612, 
-2024-09-17 10:09:16 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch15_loss10.16115298637977.pypots
-2024-09-17 10:09:22 [INFO]: Epoch 016 - training loss: 9.7145, validation loss: 10.1415, 
-2024-09-17 10:09:22 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch16_loss10.141477804917555.pypots
-2024-09-17 10:09:29 [INFO]: Epoch 017 - training loss: 9.6353, validation loss: 10.0441, 
-2024-09-17 10:09:29 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch17_loss10.044095479525053.pypots
-2024-09-17 10:09:35 [INFO]: Epoch 018 - training loss: 9.5549, validation loss: 9.9660, 
-2024-09-17 10:09:35 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch18_loss9.965992560753456.pypots
-2024-09-17 10:09:41 [INFO]: Epoch 019 - training loss: 9.5185, validation loss: 9.9566, 
-2024-09-17 10:09:41 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch19_loss9.956638923058144.pypots
-2024-09-17 10:09:47 [INFO]: Epoch 020 - training loss: 9.3870, validation loss: 9.8582, 
-2024-09-17 10:09:48 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch20_loss9.858169262225811.pypots
-2024-09-17 10:09:54 [INFO]: Epoch 021 - training loss: 9.3305, validation loss: 9.8445, 
-2024-09-17 10:09:54 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch21_loss9.844537514906664.pypots
-2024-09-17 10:10:00 [INFO]: Epoch 022 - training loss: 9.2789, validation loss: 9.7745, 
-2024-09-17 10:10:00 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch22_loss9.774540754464956.pypots
-2024-09-17 10:10:06 [INFO]: Epoch 023 - training loss: 9.2217, validation loss: 9.7554, 
-2024-09-17 10:10:06 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch23_loss9.755403225238506.pypots
-2024-09-17 10:10:12 [INFO]: Epoch 024 - training loss: 9.1718, validation loss: 9.7179, 
-2024-09-17 10:10:12 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch24_loss9.7178771679218.pypots
-2024-09-17 10:10:18 [INFO]: Epoch 025 - training loss: 9.1244, validation loss: 9.7238, 
-2024-09-17 10:10:25 [INFO]: Epoch 026 - training loss: 9.0596, validation loss: 9.6588, 
-2024-09-17 10:10:25 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch26_loss9.65876527932974.pypots
-2024-09-17 10:10:31 [INFO]: Epoch 027 - training loss: 9.0229, validation loss: 9.6182, 
-2024-09-17 10:10:31 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch27_loss9.61822377718412.pypots
-2024-09-17 10:10:37 [INFO]: Epoch 028 - training loss: 8.9720, validation loss: 9.6162, 
-2024-09-17 10:10:37 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch28_loss9.616230744581957.pypots
-2024-09-17 10:10:44 [INFO]: Epoch 029 - training loss: 8.9597, validation loss: 9.6501, 
-2024-09-17 10:10:50 [INFO]: Epoch 030 - training loss: 8.9091, validation loss: 9.6431, 
-2024-09-17 10:10:56 [INFO]: Epoch 031 - training loss: 8.8555, validation loss: 9.5901, 
-2024-09-17 10:10:56 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch31_loss9.59008840414194.pypots
-2024-09-17 10:11:03 [INFO]: Epoch 032 - training loss: 8.8346, validation loss: 9.5698, 
-2024-09-17 10:11:03 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch32_loss9.569760689368614.pypots
-2024-09-17 10:11:09 [INFO]: Epoch 033 - training loss: 8.8024, validation loss: 9.6829, 
-2024-09-17 10:11:15 [INFO]: Epoch 034 - training loss: 8.7869, validation loss: 9.6029, 
-2024-09-17 10:11:21 [INFO]: Epoch 035 - training loss: 8.6978, validation loss: 9.5584, 
-2024-09-17 10:11:21 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch35_loss9.558350856487568.pypots
-2024-09-17 10:11:27 [INFO]: Epoch 036 - training loss: 8.6628, validation loss: 9.5393, 
-2024-09-17 10:11:27 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI_epoch36_loss9.539302899287296.pypots
-2024-09-17 10:11:33 [INFO]: Epoch 037 - training loss: 8.6248, validation loss: 9.6538, 
-2024-09-17 10:11:39 [INFO]: Epoch 038 - training loss: 8.6448, validation loss: 9.5998, 
-2024-09-17 10:11:46 [INFO]: Epoch 039 - training loss: 8.5847, validation loss: 9.5834, 
-2024-09-17 10:11:52 [INFO]: Epoch 040 - training loss: 8.5574, validation loss: 9.5633, 
-2024-09-17 10:11:58 [INFO]: Epoch 041 - training loss: 8.5148, validation loss: 9.5468, 
-2024-09-17 10:11:58 [INFO]: Exceeded the training patience. Terminating the training procedure...
-2024-09-17 10:11:58 [INFO]: Finished training. The best model is from epoch#36.
-2024-09-17 10:11:58 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T100733/CSAI.pypots
-INFO:__main__:
- Testing...................................... 
-
-INFO:__main__:
- Fold 2 ended ........................................ 
-
-INFO:__main__:
- Fold 2 Results: 
-{
-    "PyPots_evaluation": {
-        "ROC_AUC": 0.802439689246286,
-        "PR_AUC": 0.46724165935672807,
-        "F1": 0.3314917127071823,
-        "Precision": 0.6122448979591837,
-        "Recall": 0.22727272727272727
-    },
-    "CSAI_evaluation": {
-        "ACC": 0.8485607008760951,
-        "AUC": 0.802439689246286,
-        "Prec_Macro": 0.7381224489795919,
-        "Recall_Macro": 0.5993934850756439,
-        "F1_Macro": 0.6230500200797733,
-        "Bal_ACC": 0.5993934850756439
-    }
-} 
-
-INFO:__main__:
- Fold 3 started ...................................... 
-
-2024-09-17 10:12:01 [INFO]: Using the given device: cuda
-2024-09-17 10:12:01 [INFO]: Model files will be saved to /scratch/users/k23031260/PyPOTS/20240917_T101201
-2024-09-17 10:12:01 [INFO]: Tensorboard file will be saved to /scratch/users/k23031260/PyPOTS/20240917_T101201/tensorboard
-INFO:__main__:
- Training..................................... 
-
-/scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/modules/transformer.py:282: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)
-  warnings.warn(f"enable_nested_tensor is True, but self.use_nested_tensor is False because {why_not_sparsity_fast_path}")
-2024-09-17 10:12:11 [INFO]: CSAI initialized with the given hyperparameters, the number of trainable parameters: 4,767,796
-2024-09-17 10:12:17 [INFO]: Epoch 001 - training loss: 19.8828, validation loss: 17.6846, 
-2024-09-17 10:12:17 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch1_loss17.684568405151367.pypots
-2024-09-17 10:12:23 [INFO]: Epoch 002 - training loss: 16.0203, validation loss: 15.1652, 
-2024-09-17 10:12:23 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch2_loss15.165198839627779.pypots
-2024-09-17 10:12:29 [INFO]: Epoch 003 - training loss: 14.3280, validation loss: 14.0233, 
-2024-09-17 10:12:29 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch3_loss14.02327324793889.pypots
-2024-09-17 10:12:36 [INFO]: Epoch 004 - training loss: 13.4288, validation loss: 13.3044, 
-2024-09-17 10:12:36 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch4_loss13.304386872511644.pypots
-2024-09-17 10:12:42 [INFO]: Epoch 005 - training loss: 12.7453, validation loss: 12.7092, 
-2024-09-17 10:12:42 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch5_loss12.709245901841383.pypots
-2024-09-17 10:12:48 [INFO]: Epoch 006 - training loss: 12.1587, validation loss: 12.2268, 
-2024-09-17 10:12:48 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch6_loss12.226821019099308.pypots
-2024-09-17 10:12:54 [INFO]: Epoch 007 - training loss: 11.6676, validation loss: 11.8071, 
-2024-09-17 10:12:54 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch7_loss11.807125311631422.pypots
-2024-09-17 10:13:00 [INFO]: Epoch 008 - training loss: 11.3090, validation loss: 11.5152, 
-2024-09-17 10:13:00 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch8_loss11.515187997084398.pypots
-2024-09-17 10:13:07 [INFO]: Epoch 009 - training loss: 11.0445, validation loss: 11.2773, 
-2024-09-17 10:13:07 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch9_loss11.27730105473445.pypots
-2024-09-17 10:13:13 [INFO]: Epoch 010 - training loss: 10.8247, validation loss: 11.0927, 
-2024-09-17 10:13:13 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch10_loss11.092694796048677.pypots
-2024-09-17 10:13:20 [INFO]: Epoch 011 - training loss: 10.6263, validation loss: 10.9330, 
-2024-09-17 10:13:20 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch11_loss10.93298288492056.pypots
-2024-09-17 10:13:26 [INFO]: Epoch 012 - training loss: 10.4576, validation loss: 10.7688, 
-2024-09-17 10:13:26 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch12_loss10.768752538240873.pypots
-2024-09-17 10:13:32 [INFO]: Epoch 013 - training loss: 10.3083, validation loss: 10.7141, 
-2024-09-17 10:13:32 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch13_loss10.714077582726112.pypots
-2024-09-17 10:13:38 [INFO]: Epoch 014 - training loss: 10.1665, validation loss: 10.5184, 
-2024-09-17 10:13:38 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch14_loss10.518385446988619.pypots
-2024-09-17 10:13:45 [INFO]: Epoch 015 - training loss: 10.0265, validation loss: 10.4371, 
-2024-09-17 10:13:45 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch15_loss10.43711126767672.pypots
-2024-09-17 10:13:51 [INFO]: Epoch 016 - training loss: 9.8771, validation loss: 10.3238, 
-2024-09-17 10:13:51 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch16_loss10.323769642756535.pypots
-2024-09-17 10:13:57 [INFO]: Epoch 017 - training loss: 9.7619, validation loss: 10.2746, 
-2024-09-17 10:13:57 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch17_loss10.274641770582933.pypots
-2024-09-17 10:14:03 [INFO]: Epoch 018 - training loss: 9.6899, validation loss: 10.1612, 
-2024-09-17 10:14:03 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch18_loss10.161216955918531.pypots
-2024-09-17 10:14:09 [INFO]: Epoch 019 - training loss: 9.5828, validation loss: 10.1121, 
-2024-09-17 10:14:09 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch19_loss10.11206890986516.pypots
-2024-09-17 10:14:16 [INFO]: Epoch 020 - training loss: 9.5149, validation loss: 10.0206, 
-2024-09-17 10:14:16 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch20_loss10.020634797903208.pypots
-2024-09-17 10:14:22 [INFO]: Epoch 021 - training loss: 9.4218, validation loss: 10.0123, 
-2024-09-17 10:14:22 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch21_loss10.012267112731934.pypots
-2024-09-17 10:14:28 [INFO]: Epoch 022 - training loss: 9.3914, validation loss: 9.9628, 
-2024-09-17 10:14:28 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch22_loss9.962776624239408.pypots
-2024-09-17 10:14:35 [INFO]: Epoch 023 - training loss: 9.3370, validation loss: 9.9673, 
-2024-09-17 10:14:41 [INFO]: Epoch 024 - training loss: 9.2903, validation loss: 9.9095, 
-2024-09-17 10:14:41 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch24_loss9.909510172330416.pypots
-2024-09-17 10:14:47 [INFO]: Epoch 025 - training loss: 9.2280, validation loss: 9.8901, 
-2024-09-17 10:14:47 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch25_loss9.890098791856031.pypots
-2024-09-17 10:14:53 [INFO]: Epoch 026 - training loss: 9.1656, validation loss: 9.8827, 
-2024-09-17 10:14:53 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch26_loss9.882666221031776.pypots
-2024-09-17 10:15:00 [INFO]: Epoch 027 - training loss: 9.1205, validation loss: 9.8682, 
-2024-09-17 10:15:00 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch27_loss9.868180788480318.pypots
-2024-09-17 10:15:06 [INFO]: Epoch 028 - training loss: 9.0862, validation loss: 9.8257, 
-2024-09-17 10:15:06 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch28_loss9.825685207660381.pypots
-2024-09-17 10:15:12 [INFO]: Epoch 029 - training loss: 9.0182, validation loss: 9.8091, 
-2024-09-17 10:15:12 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch29_loss9.80908723977896.pypots
-2024-09-17 10:15:18 [INFO]: Epoch 030 - training loss: 8.9991, validation loss: 9.8358, 
-2024-09-17 10:15:24 [INFO]: Epoch 031 - training loss: 8.9412, validation loss: 9.8499, 
-2024-09-17 10:15:31 [INFO]: Epoch 032 - training loss: 8.9064, validation loss: 9.8147, 
-2024-09-17 10:15:37 [INFO]: Epoch 033 - training loss: 8.8626, validation loss: 9.8233, 
-2024-09-17 10:15:43 [INFO]: Epoch 034 - training loss: 8.8213, validation loss: 9.7391, 
-2024-09-17 10:15:43 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch34_loss9.739089452303373.pypots
-2024-09-17 10:15:49 [INFO]: Epoch 035 - training loss: 8.7824, validation loss: 9.7170, 
-2024-09-17 10:15:50 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch35_loss9.716995385976938.pypots
-2024-09-17 10:15:56 [INFO]: Epoch 036 - training loss: 8.7692, validation loss: 9.7545, 
-2024-09-17 10:16:02 [INFO]: Epoch 037 - training loss: 8.6827, validation loss: 9.7657, 
-2024-09-17 10:16:08 [INFO]: Epoch 038 - training loss: 8.6972, validation loss: 9.6932, 
-2024-09-17 10:16:08 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI_epoch38_loss9.693157856280987.pypots
-2024-09-17 10:16:15 [INFO]: Epoch 039 - training loss: 8.6416, validation loss: 9.8172, 
-2024-09-17 10:16:21 [INFO]: Epoch 040 - training loss: 8.6095, validation loss: 9.8130, 
-2024-09-17 10:16:27 [INFO]: Epoch 041 - training loss: 8.6078, validation loss: 9.7707, 
-2024-09-17 10:16:33 [INFO]: Epoch 042 - training loss: 8.5853, validation loss: 9.7705, 
-2024-09-17 10:16:39 [INFO]: Epoch 043 - training loss: 8.5093, validation loss: 9.7930, 
-2024-09-17 10:16:39 [INFO]: Exceeded the training patience. Terminating the training procedure...
-2024-09-17 10:16:39 [INFO]: Finished training. The best model is from epoch#38.
-2024-09-17 10:16:39 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101201/CSAI.pypots
-INFO:__main__:
- Testing...................................... 
-
-INFO:__main__:
- Fold 3 ended ........................................ 
-
-INFO:__main__:
- Fold 3 Results: 
-{
-    "PyPots_evaluation": {
-        "ROC_AUC": 0.8033902951658595,
-        "PR_AUC": 0.3906275700800793,
-        "F1": 0.3660130718954248,
-        "Precision": 0.4666666666666667,
-        "Recall": 0.3010752688172043
-    },
-    "CSAI_evaluation": {
-        "ACC": 0.8785982478097623,
-        "AUC": 0.8033902951658595,
-        "Prec_Macro": 0.6893549842129003,
-        "Recall_Macro": 0.6278747448901886,
-        "F1_Macro": 0.6494425221068819,
-        "Bal_ACC": 0.6278747448901886
-    }
-} 
-
-INFO:__main__:
- Fold 4 started ...................................... 
-
-2024-09-17 10:16:42 [INFO]: Using the given device: cuda
-2024-09-17 10:16:42 [INFO]: Model files will be saved to /scratch/users/k23031260/PyPOTS/20240917_T101642
-2024-09-17 10:16:42 [INFO]: Tensorboard file will be saved to /scratch/users/k23031260/PyPOTS/20240917_T101642/tensorboard
-INFO:__main__:
- Training..................................... 
-
-/scratch/users/k23031260/.conda/envs/imputation/lib/python3.8/site-packages/torch/nn/modules/transformer.py:282: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)
-  warnings.warn(f"enable_nested_tensor is True, but self.use_nested_tensor is False because {why_not_sparsity_fast_path}")
-2024-09-17 10:16:52 [INFO]: CSAI initialized with the given hyperparameters, the number of trainable parameters: 4,767,796
-2024-09-17 10:16:58 [INFO]: Epoch 001 - training loss: 19.7632, validation loss: 17.2256, 
-2024-09-17 10:16:58 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch1_loss17.22562423119178.pypots
-2024-09-17 10:17:04 [INFO]: Epoch 002 - training loss: 15.8300, validation loss: 14.7968, 
-2024-09-17 10:17:04 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch2_loss14.796776551466722.pypots
-2024-09-17 10:17:10 [INFO]: Epoch 003 - training loss: 14.2267, validation loss: 13.7490, 
-2024-09-17 10:17:10 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch3_loss13.74896291586069.pypots
-2024-09-17 10:17:17 [INFO]: Epoch 004 - training loss: 13.3255, validation loss: 13.0572, 
-2024-09-17 10:17:17 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch4_loss13.057222366333008.pypots
-2024-09-17 10:17:23 [INFO]: Epoch 005 - training loss: 12.6864, validation loss: 12.4463, 
-2024-09-17 10:17:23 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch5_loss12.446328970102163.pypots
-2024-09-17 10:17:29 [INFO]: Epoch 006 - training loss: 12.1047, validation loss: 11.9267, 
-2024-09-17 10:17:29 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch6_loss11.926673449002779.pypots
-2024-09-17 10:17:35 [INFO]: Epoch 007 - training loss: 11.6296, validation loss: 11.5520, 
-2024-09-17 10:17:36 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch7_loss11.55199960561899.pypots
-2024-09-17 10:17:42 [INFO]: Epoch 008 - training loss: 11.2357, validation loss: 11.1913, 
-2024-09-17 10:17:42 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch8_loss11.191279851473295.pypots
-2024-09-17 10:17:48 [INFO]: Epoch 009 - training loss: 10.9503, validation loss: 10.9239, 
-2024-09-17 10:17:48 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch9_loss10.923872727614183.pypots
-2024-09-17 10:17:54 [INFO]: Epoch 010 - training loss: 10.6956, validation loss: 10.7496, 
-2024-09-17 10:17:54 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch10_loss10.749644206120418.pypots
-2024-09-17 10:18:00 [INFO]: Epoch 011 - training loss: 10.5140, validation loss: 10.6026, 
-2024-09-17 10:18:00 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch11_loss10.60260559962346.pypots
-2024-09-17 10:18:06 [INFO]: Epoch 012 - training loss: 10.3518, validation loss: 10.3995, 
-2024-09-17 10:18:06 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch12_loss10.39953561929556.pypots
-2024-09-17 10:18:13 [INFO]: Epoch 013 - training loss: 10.1738, validation loss: 10.2665, 
-2024-09-17 10:18:13 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch13_loss10.266467167780949.pypots
-2024-09-17 10:18:19 [INFO]: Epoch 014 - training loss: 10.0017, validation loss: 10.1201, 
-2024-09-17 10:18:19 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch14_loss10.120065542367788.pypots
-2024-09-17 10:18:26 [INFO]: Epoch 015 - training loss: 9.8544, validation loss: 10.0095, 
-2024-09-17 10:18:26 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch15_loss10.009477101839506.pypots
-2024-09-17 10:18:32 [INFO]: Epoch 016 - training loss: 9.7473, validation loss: 9.9595, 
-2024-09-17 10:18:32 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch16_loss9.959543594947228.pypots
-2024-09-17 10:18:38 [INFO]: Epoch 017 - training loss: 9.6449, validation loss: 9.8247, 
-2024-09-17 10:18:38 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch17_loss9.82470651773306.pypots
-2024-09-17 10:18:44 [INFO]: Epoch 018 - training loss: 9.5744, validation loss: 9.8314, 
-2024-09-17 10:18:51 [INFO]: Epoch 019 - training loss: 9.4877, validation loss: 9.7025, 
-2024-09-17 10:18:51 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch19_loss9.702501737154448.pypots
-2024-09-17 10:18:57 [INFO]: Epoch 020 - training loss: 9.4309, validation loss: 9.6928, 
-2024-09-17 10:18:57 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch20_loss9.692832286541279.pypots
-2024-09-17 10:19:03 [INFO]: Epoch 021 - training loss: 9.3655, validation loss: 9.6754, 
-2024-09-17 10:19:03 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch21_loss9.675394204946665.pypots
-2024-09-17 10:19:09 [INFO]: Epoch 022 - training loss: 9.3110, validation loss: 9.6425, 
-2024-09-17 10:19:09 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch22_loss9.642457228440504.pypots
-2024-09-17 10:19:15 [INFO]: Epoch 023 - training loss: 9.2554, validation loss: 9.5785, 
-2024-09-17 10:19:15 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch23_loss9.578454751234789.pypots
-2024-09-17 10:19:22 [INFO]: Epoch 024 - training loss: 9.1938, validation loss: 9.5781, 
-2024-09-17 10:19:22 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch24_loss9.57814047886775.pypots
-2024-09-17 10:19:28 [INFO]: Epoch 025 - training loss: 9.1351, validation loss: 9.5988, 
-2024-09-17 10:19:34 [INFO]: Epoch 026 - training loss: 9.0881, validation loss: 9.5619, 
-2024-09-17 10:19:34 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch26_loss9.5618713085468.pypots
-2024-09-17 10:19:41 [INFO]: Epoch 027 - training loss: 9.0664, validation loss: 9.5081, 
-2024-09-17 10:19:41 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch27_loss9.508056934063251.pypots
-2024-09-17 10:19:47 [INFO]: Epoch 028 - training loss: 8.9861, validation loss: 9.4965, 
-2024-09-17 10:19:47 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch28_loss9.496493706336388.pypots
-2024-09-17 10:19:53 [INFO]: Epoch 029 - training loss: 8.9600, validation loss: 9.5113, 
-2024-09-17 10:19:59 [INFO]: Epoch 030 - training loss: 8.9366, validation loss: 9.4739, 
-2024-09-17 10:20:00 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch30_loss9.473892945509691.pypots
-2024-09-17 10:20:06 [INFO]: Epoch 031 - training loss: 8.8816, validation loss: 9.4288, 
-2024-09-17 10:20:06 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch31_loss9.428788845355694.pypots
-2024-09-17 10:20:12 [INFO]: Epoch 032 - training loss: 8.8378, validation loss: 9.4728, 
-2024-09-17 10:20:18 [INFO]: Epoch 033 - training loss: 8.7622, validation loss: 9.3891, 
-2024-09-17 10:20:18 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch33_loss9.389116067152758.pypots
-2024-09-17 10:20:24 [INFO]: Epoch 034 - training loss: 8.7617, validation loss: 9.3645, 
-2024-09-17 10:20:24 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI_epoch34_loss9.36447657071627.pypots
-2024-09-17 10:20:30 [INFO]: Epoch 035 - training loss: 8.6960, validation loss: 9.4147, 
-2024-09-17 10:20:37 [INFO]: Epoch 036 - training loss: 8.6488, validation loss: 9.3866, 
-2024-09-17 10:20:43 [INFO]: Epoch 037 - training loss: 8.6271, validation loss: 9.4004, 
-2024-09-17 10:20:50 [INFO]: Epoch 038 - training loss: 8.5923, validation loss: 9.3771, 
-2024-09-17 10:20:56 [INFO]: Epoch 039 - training loss: 8.5543, validation loss: 9.4555, 
-2024-09-17 10:20:56 [INFO]: Exceeded the training patience. Terminating the training procedure...
-2024-09-17 10:20:56 [INFO]: Finished training. The best model is from epoch#34.
-2024-09-17 10:20:56 [INFO]: Saved the model to /scratch/users/k23031260/PyPOTS/20240917_T101642/CSAI.pypots
-INFO:__main__:
- Testing...................................... 
-
-INFO:__main__:
- Fold 4 ended ........................................ 
-
-INFO:__main__:
- Fold 4 Results: 
-{
-    "PyPots_evaluation": {
-        "ROC_AUC": 0.8247775235189423,
-        "PR_AUC": 0.4409416352693919,
-        "F1": 0.4,
-        "Precision": 0.4875,
-        "Recall": 0.3391304347826087
-    },
-    "CSAI_evaluation": {
-        "ACC": 0.853566958698373,
-        "AUC": 0.8247775235189423,
-        "Prec_Macro": 0.6908988178025035,
-        "Recall_Macro": 0.6395944571573862,
-        "F1_Macro": 0.6583036350677121,
-        "Bal_ACC": 0.6395944571573862
+        "ACC": 0.85125,
+        "AUC": 0.8139920424403184,
+        "Prec_Macro": 0.6678986728915403,
+        "Recall_Macro": 0.6609748010610079,
+        "F1_Macro": 0.6643052847234221,
+        "Bal_ACC": 0.6609748010610079
     }
 } 
 
@@ -637,9 +293,9 @@ INFO:__main__:
 
 INFO:__main__:
  Classification performance using Pypots evaluation: 
- {'ROC_AUC': 0.8060176701977161, 'PR_AUC': 0.42880187380049384, 'F1': 0.36998970436312206, 'Precision': 0.53328231292517, 'Recall': 0.2878663155451374} 
+ {'ROC_AUC': 0.8093609751068522, 'PR_AUC': 0.41913792734192856, 'F1': 0.357839947950553, 'Precision': 0.45701917130488556, 'Recall': 0.311013986013986} 
 
 INFO:__main__:
  Classification performance using CSAI evaluation: 
- {'ACC': 0.8653951814768461, 'AUC': 0.8060176701977161, 'Prec_Macro': 0.7131235434803731, 'Recall_Macro': 0.6233389615552358, 'F1_Macro': 0.6472789069130693, 'Bal_ACC': 0.6233389615552358} 
+ {'ACC': 0.85625, 'AUC': 0.8093609751068522, 'Prec_Macro': 0.6777698206980596, 'Recall_Macro': 0.6259748840614657, 'F1_Macro': 0.6383668803777638, 'Bal_ACC': 0.6259748840614657} 
 

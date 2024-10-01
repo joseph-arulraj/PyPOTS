@@ -103,6 +103,7 @@ class BackboneCSAI(nn.Module):
             Hiddens.append(h.unsqueeze(dim=1))
             reconstruction.append(x_comb_t.unsqueeze(dim=1))
         Hiddens = torch.cat(Hiddens, dim=1)
+        reconstruction = torch.cat(reconstruction, dim=1)
 
         return x_imp, reconstruction, h, x_loss
 
@@ -154,6 +155,11 @@ class BackboneBCSAI(nn.Module):
 
         # Merge the regression loss
         reconstruction_loss = f_reconstruction_loss + b_reconstruction_loss
+
+        # fliping backward reconstruction
+        b_reconstruction.flip(dims=[1])
+
+
         return (
                 imputed_data,
                 f_reconstruction,

@@ -2,8 +2,8 @@
 
 
 
-#SBATCH --output=/scratch/users/k23031260/PyPOTS/output_logs/Classification_csai.out
-#SBATCH --job-name=csai_classify
+#SBATCH --output=/scratch/users/k23031260/PyPOTS/output_logs/Classification_bayesian_deari.out
+#SBATCH --job-name=deari_classify
 #SBATCH --partition=interruptible_gpu
 #SBATCH --gres=gpu:1
 #SBATCH --mem=256G
@@ -20,6 +20,6 @@ source activate imputation
 # Navigate to the directory containing the Python script
 cd /scratch/users/k23031260/PyPOTS
 
-python csai.py --mode classify
+python bayesian_deari.py --mode classify
 
 

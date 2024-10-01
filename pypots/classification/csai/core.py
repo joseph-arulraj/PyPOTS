@@ -65,7 +65,7 @@ class _BCSAI(nn.Module):
         b_logits = self.b_classifier(self.dropout(b_hidden_states))
 
         f_prediction = torch.sigmoid(f_logits)
-        b_prediction = torch.sigmoid(b_logits)
+        b_prediction = torch.sigmoid(b_logits).flip(dims=[1])
 
         classification_pred = (f_prediction + b_prediction) / 2
 
@@ -91,7 +91,7 @@ class _BCSAI(nn.Module):
             )
 
             results["loss"] = loss
-            # results["reconstruction"] = (f_reconstruction + b_reconstruction) / 2
+            results["reconstruction"] = (f_reconstruction + b_reconstruction) / 2
             results["classification_loss"] = classification_loss
             results["f_reconstruction"] = f_reconstruction
             results["b_reconstruction"] = b_reconstruction
