@@ -31,5 +31,3 @@ bayesian_deari.py
 grud.py
 vrin.py
 
-# ignore the saved model
-classification/

@@ -3,18 +3,100 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
-from torch.nn.parameter import Parameter
 import math
-import numpy as np
-import os
-import copy
-import torch.optim as optim
-import pandas as pd
-from torch.nn.modules import MultiheadAttention, Linear, Dropout, BatchNorm1d, TransformerEncoderLayer
 
 
 class BackboneRITS_attention(nn.Module):
-    def __init__(self, n_steps, n_features, rnn_hidden_size, num_encoderlayer, component_error, is_gru,  device = None, attention=True, hidden_agg='cls'):
+    """
+    Attributes
+    ----------
+    n_steps :
+        sequence length (number of time steps)
+
+    n_features :
+        number of features (input dimensions)
+
+    rnn_hidden_size :
+        the hidden size of the GRU cell
+
+    num_encoderlayer :
+        number of encoder layers for the transformer
+
+    component_error :
+        whether to include component estimation error in the loss
+
+    is_gru :
+        whether to use GRU or LSTM cell
+
+    device :
+        the device (CPU/GPU) to run the model on
+    
+    attention :
+        whether to use attention in the model
+    
+    hidden_agg :
+        how to aggregate the hidden states
+    
+    temp_decay_h :
+        the temporal decay module to decay the hidden state of the GRU
+    
+    temp_decay_x :
+        the temporal decay module to decay data in the raw feature space
+    
+    hist :
+        the temporal-regression module that projects the GRU hidden state into the raw feature space
+    
+    feat_reg_v :
+        the feature-regression module used for feature-based estimation
+    
+    weight_combine :
+        the module that generates the weight to combine history regression and feature regression
+    
+    class_token :
+        the class token used in the transformer
+    
+    encoder_layer :
+        the transformer encoder layer
+    
+    transformer_encoder :
+        the transformer encoder
+    
+    gru :
+        the GRU cell that models temporal data for imputation
+    
+    lstm :
+        the LSTM cell that models temporal data for imputation
+
+    Parameters
+    ----------
+    n_steps :
+        sequence length (number of time steps)
+    
+    n_features :    
+        number of features (input dimensions)   
+
+    rnn_hidden_size :
+        the hidden size of the GRU cell
+
+    num_encoderlayer :
+        number of encoder layers for the transformer
+
+    component_error :
+        whether to include component estimation error in the loss
+
+    is_gru :
+        whether to use GRU or LSTM cell
+
+    attention :
+        whether to use attention in the model   
+
+    hidden_agg :
+        how to aggregate the hidden states
+
+    
+    
+    """
+    def __init__(self, n_steps, n_features, rnn_hidden_size, num_encoderlayer, component_error, is_gru, attention=True, hidden_agg='cls'):
         super(BackboneRITS_attention, self).__init__()
         self.attention = attention
         self.hidden_agg = hidden_agg
@@ -24,7 +106,6 @@ class BackboneRITS_attention(nn.Module):
         self.num_encoderlayer = num_encoderlayer
         self.is_gru = is_gru
         self.component_error = component_error
-        self.device = device
         self.temp_decay_h = Decay(input_size=self.input_size, output_size=self.hidden_size, diag = False)
         self.temp_decay_x = Decay(input_size=self.input_size, output_size=self.input_size, diag = True)
         self.hist = nn.Linear(self.hidden_size, self.input_size)
@@ -57,7 +138,7 @@ class BackboneRITS_attention(nn.Module):
         [B, T, V] = x.shape
         
         if h == None:
-            h = Variable(torch.zeros(B, self.hidden_size)).to(self.device)
+            h = Variable(torch.zeros(B, self.hidden_size)).to(x.device)
         else:
             raw_h = h.clone()
             if self.attention:
@@ -71,7 +152,7 @@ class BackboneRITS_attention(nn.Module):
                 h = torch.mean(h, dim=1)
 
         if c == None:
-            c = Variable(torch.zeros(B, self.hidden_size)).to(self.device)
+            c = Variable(torch.zeros(B, self.hidden_size)).to(x.device)
 
         x_loss = 0
         x_imp = []
@@ -129,12 +210,11 @@ class BackboneRITS_attention(nn.Module):
 
 
 class BackboneDEARI(nn.Module):
-    def __init__(self, n_steps, n_features, rnn_hidden_size, num_encoderlayer, component_error, is_gru, multi, device = None):
+    def __init__(self, n_steps, n_features, rnn_hidden_size, num_encoderlayer, component_error, is_gru, multi):
         super(BackboneDEARI, self).__init__()
         self.multi = multi
-        self.device = device
-        self.model_f = nn.ModuleList([BackboneRITS_attention(n_steps, n_features, rnn_hidden_size, num_encoderlayer, component_error, is_gru, self.device) for i in range(self.multi)])
-        self.model_b = nn.ModuleList([BackboneRITS_attention(n_steps, n_features, rnn_hidden_size, num_encoderlayer, component_error, is_gru, self.device) for i in range(self.multi)])
+        self.model_f = nn.ModuleList([BackboneRITS_attention(n_steps, n_features, rnn_hidden_size, num_encoderlayer, component_error, is_gru) for i in range(self.multi)])
+        self.model_b = nn.ModuleList([BackboneRITS_attention(n_steps, n_features, rnn_hidden_size, num_encoderlayer, component_error, is_gru) for i in range(self.multi)])
 
     def forward(self, xdata):
         # Fetching forward data from xdata
@@ -198,3 +278,4 @@ class BackboneDEARI(nn.Module):
                 consistency_loss,
                 reconstruction_loss,
             )
+    

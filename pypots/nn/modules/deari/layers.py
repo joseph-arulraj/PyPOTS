@@ -57,3 +57,4 @@ class Decay(nn.Module):
             gamma = F.relu(F.linear(d, self.W, self.b))
         gamma = torch.exp(-gamma)
         return gamma
+    

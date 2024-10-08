@@ -7,6 +7,7 @@ Expose all usable time-series imputation models.
 
 from .brits import BRITS
 from .csai import CSAI
+from .deari import DEARI
 from .csdi import CSDI
 from .gpvae import GPVAE
 from .mrnn import MRNN
@@ -87,4 +88,5 @@ __all__ = [
     "Lerp",
     "TEFN",
     "CSAI",
+    "DEARI",
 ]
