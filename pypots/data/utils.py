@@ -259,9 +259,10 @@ def compute_last_obs(data, masks, direction):
     Returns:
     - last_obs (np.array): Array of the last observed values.
     """
-    if direction == 'backward':
-        masks = masks[::-1] == 1.0
-        data = data[::-1]
+    
+    # if direction == 'backward':
+    #     masks = masks[::-1] == 1.0
+    #     data = data[::-1]
     
     [T, D] = masks.shape
     last_obs = np.full((T, D), np.nan)  # Initialize last observed values with NaNs
@@ -274,7 +275,6 @@ def compute_last_obs(data, masks, direction):
         last_obs_val[mask] = data[t-1, mask]
         # Assign last observed values to the current time step
         last_obs[t] = last_obs_val 
-    
     return last_obs
 
 def adjust_probability_vectorized(obs_count, avg_count, base_prob, increase_factor=0.5):
@@ -533,3 +533,172 @@ class DiceBCELoss(nn.Module):
         Dice_BCE = BCE + dice_loss
         
         return BCE, Dice_BCE
+    
+import torch
+
+def compute_last_obs_torch(data: torch.Tensor, masks: torch.Tensor, direction: str) -> torch.Tensor:
+    """
+    Compute the last observed values for each time step using PyTorch tensors.
+
+    Parameters:
+    ----------
+    data : torch.Tensor
+        Original data tensor of shape [T, D] or [N, T, D].
+    masks : torch.Tensor
+        Binary masks indicating where data is not NaN, shape [T, D] or [N, T, D].
+    direction : str
+        Direction to compute last observed values, can be 'backward' or 'forward'.
+
+    Returns:
+    -------
+    last_obs : torch.Tensor
+        Tensor of the last observed values with the same shape as data.
+    """
+    
+    # def cal_last_obs_for_single_sample(data: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
+    #     """Calculate last observed values for a single sample."""
+    #     T, D = mask.shape
+    #     last_obs = torch.full((T, D), float('nan'), device=device)  # Initialize with NaNs
+    #     last_obs_val = torch.full((D,), float('nan'), device=device)  # Last observed values
+
+
+    #     for t in range(1, T):
+    #         mask_t = mask[t - 1]  # Mask for the previous time step
+    #         last_obs_val[mask_t] = data[t - 1, mask_t]  # Update last observed values
+    #         last_obs[t] = last_obs_val.clone()  # Clone to avoid overwriting
+
+    #     return last_obs
+
+    # # Handle input shapes and direction
+    # device = data.device
+    # if len(masks.shape) == 2:  # Single sample
+    #     if direction == 'backward':
+    #         masks = masks == 1.0
+    #         # data = data.flip(dims=[0])
+        
+    #     last_obs = cal_last_obs_for_single_sample(data, masks)
+    # else:  # Batch of samples
+    #     n_samples, n_steps, n_features = masks.shape
+    #     last_obs_collector = []
+
+    #     for i in range(n_samples):
+    #         # if direction == 'backward':
+    #         #     sample_masks = masks[i] == 1.0
+    #         #     sample_data = data[i]
+    #         # else:
+    #         sample_masks = (masks[i] == 1.0).bool()
+    #         sample_data = data[i]
+
+    #         last_obs_sample = cal_last_obs_for_single_sample(sample_data, sample_masks)
+    #         last_obs_collector.append(last_obs_sample.unsqueeze(0))  # Add batch dimension
+
+    #     last_obs = torch.cat(last_obs_collector, dim=0)  # Concatenate to form final output
+
+    # return last_obs
+    # batch_size, T, D = masks.shape
+    # last_obs = np.full((batch_size, T, D), np.nan)  # Initialize last observed values with NaNs
+    
+    # for b in range(batch_size):  # Loop through each sample in the batch
+    #     current_data = data[b]   # Get the data for the current sample
+    #     current_masks = masks[b]  # Get the masks for the current sample
+
+    #     # Reverse data and masks for backward direction
+    #     if direction == 'backward':
+    #         current_masks = current_masks[::-1] == 1.0
+    #         current_data = current_data[::-1]
+
+    #     last_obs_val = np.full(D, np.nan)  # Initialize last observed values for the current sample
+    #     # current_masks = current_masks.bool()
+    #     for t in range(1, T):
+    #         mask = current_masks[t-1].bool()
+    #         last_obs_val[mask] = current_data[t-1, mask]  # Update last observed values
+    #         last_obs[b,t] = last_obs_val  # Assign last observed values to the current time step
+    
+    # return last_obs
+    def compute_single_sample(data, masks, direction):
+        if direction == 'backward':
+            masks = masks[::-1] == 1.0
+            data = data[::-1]
+
+        T, D = masks.shape
+        last_obs = np.full((T, D), np.nan)  # Initialize last observed values with NaNs
+        last_obs_val = np.full(D, np.nan)  # Initialize last observed values for first time step with NaNs
+
+        for t in range(T):
+            mask = masks[t].astype(bool)
+            last_obs_val[mask] = data[t, mask]
+            last_obs[t] = last_obs_val
+
+        return last_obs
+
+    B, T, D = data.shape
+    recs = []
+    for i in range(B): 
+        rec = {}
+        values = copy.deepcopy(data[i].numpy())
+        masks_np = copy.deepcopy(masks[i].numpy())
+
+        if direction == 'forward':
+            last_obs_f = compute_single_sample(values, masks_np, direction='forward')
+            rec['last_obs_f'] = np.nan_to_num(last_obs_f).tolist()
+
+        else:
+            last_obs_b = compute_single_sample(values, masks_np, direction='backward')
+            rec['last_obs_b'] = np.nan_to_num(last_obs_b).tolist()
+        recs.append(rec)
+
+    if direction == 'forward':
+        last_obs_f = torch.FloatTensor(np.array([r['last_obs_f'] for r in recs]))
+        return last_obs_f
+    else:
+        last_obs_b = torch.FloatTensor(np.array([r['last_obs_b'] for r in recs]))
+        return last_obs_b
+
+    # current_data = data
+    # if masks.ndim < 2:
+    #     raise ValueError("Masks must have at least 2 dimensions.")
+    
+    # if direction == 'backward':
+    #     if masks.shape[0] == 0:  # Check for empty masks
+    #         raise ValueError("Cannot reverse an empty mask array.")
+    #     masks = masks.flip(0) == 1.0  # Flip masks for backward processing
+    #     current_data = current_data.flip(0)  # Flip data for backward processing
+
+    # [T, B, D] = current_data.shape  # Extract dimensions
+    # last_obs = torch.full((T, B, D), float('nan'), device=current_data.device)
+    # last_obs_val = torch.full((B, D), float('nan'), device=current_data.device)  # Last obs for each batch
+
+    # for t in range(1, T):
+    #     mask = masks[t - 1].bool()  # Get mask for the previous time step
+    #     last_obs_val[mask] = current_data[t - 1, mask]  # Update last observed values
+    #     last_obs[t] = last_obs_val.clone()  # Assign updated values to last_obs for the current time step
+
+    # return last_obs
+
+
+def compute_last_obs_torch_new(data: torch.Tensor, masks: torch.Tensor, direction: str) -> torch.Tensor:
+
+    def compute_single_sample(data, masks):
+      T, D = masks.shape
+      last_obs = torch.full((T, D), np.nan)  # Initialize last observed values with NaNs
+      last_obs_val = torch.full((D,), np.nan)  # Initialize last observed values for first time step with NaNs
+
+      for t in range(1, T):  # Start from t=1, keeping first row as NaN
+          mask = masks[t - 1].bool()
+          # Update last observed values based on previous time step
+          last_obs_val[mask] = data[t - 1, mask]
+          # Assign last observed values to the current time step
+          last_obs[t] = last_obs_val 
+      
+      return last_obs
+
+
+    B, T, D = data.shape
+    last_obs_batch = torch.full((B, T, D), np.nan)  # Initialize the output array with NaNs
+
+    # Loop over each batch
+    for b in range(B):
+        # Call the original compute_last_obs function for each batch slice
+        last_obs_batch[b] = compute_single_sample(data[b], masks[b])
+
+    return torch.nan_to_num(last_obs_batch)9

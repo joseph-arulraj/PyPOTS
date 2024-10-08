@@ -4,6 +4,9 @@ import numpy as np
 import torch
 from ...data.utils import collate_fn_bidirectional, non_uniform_sample_loader_bidirectional, normalize_csai
 from typing import Union
+from pygrinder import mcar, fill_and_get_mask_torch
+from ...data.utils import _parse_delta_torch, compute_last_obs_torch, compute_last_obs_torch_new
+
 
 class DatasetForCSAI(BaseDataset):
     def __init__(self, data: Union[dict, str], 
@@ -14,6 +17,7 @@ class DatasetForCSAI(BaseDataset):
                  increase_factor: float = 0.1,
                  compute_intervals: bool = False,
                  replacement_probabilities = None,
+                 masking_code = 'pygrihnder',
                  normalise_mean : list = [],
                  normalise_std: list = [],
                  impute_only: bool = True,
@@ -34,23 +38,67 @@ class DatasetForCSAI(BaseDataset):
         self.training = training
 
         if not isinstance(self.data, str):
-            self.normalized_data, self.mean_set, self.std_set, self.intervals = normalize_csai(self.data['X'], normalise_mean, 
-                                                                                              normalise_std, compute_intervals) 
-            _data, self.replacement_probabilities = non_uniform_sample_loader_bidirectional(self.normalized_data, 
-                                                                                                     removal_percent, 
-                                                                                                     replacement_probabilities, 
-                                                                                                     increase_factor)
-            self.processed_data = collate_fn_bidirectional(_data)
-            self.forward_X = self.processed_data['values']
-            self.forward_missing_mask = self.processed_data['masks']
-            self.backward_X = torch.flip(self.forward_X, dims=[1])
-            self.backward_missing_mask = torch.flip(self.forward_missing_mask, dims=[1])
+            if masking_code == 'pygrinder':
+                self.mean_set, self.std_set, self.intervals, self.replacement_probabilities = [],[],[],[]
+                self.processed_data = {}
+                self.normalized_data, self.mean_set, self.std_set, self.intervals = normalize_csai(self.data['X'], normalise_mean, 
+                                                                                                normalise_std, compute_intervals) 
+                if isinstance(self.normalized_data, np.ndarray):
+                    self.normalized_data_tensor = torch.from_numpy(self.normalized_data)
+                
+                self.normalized_data_miss = mcar(self.normalized_data_tensor, removal_percent/100)
+                self.forward_X, self.forward_missing_mask = fill_and_get_mask_torch(self.normalized_data_miss)
+                
+                if not self.training and self.impute_only:
+                    assert (
+                    "X_ori" in self.data.keys()
+                    ), "The given dataset dictionary doesn't contains X_ori. Please double check."
+                    
+                    self.X_ori, self.X_ori_missing_mask = fill_and_get_mask_torch(self.X_ori)
 
-            self.X_ori = self.processed_data['evals']
-            self.indicating_mask = self.processed_data['eval_masks']
-            # if self.return_y:
-            #     self.y = self.processed_data['labels']
-            
+                
+                self.forward_X = self.forward_X.to(torch.float32)
+
+                self.backward_X = torch.flip(self.forward_X, dims=[1])
+                self.backward_missing_mask = torch.flip(self.forward_missing_mask, dims=[1])
+                # compute the forward and backward delta
+                self.processed_data["deltas_f"] = _parse_delta_torch(self.forward_missing_mask)
+                self.processed_data["deltas_b"] = _parse_delta_torch(self.backward_missing_mask)
+                # compute the forward and backward last observed value
+                self.processed_data["last_obs_f"] = compute_last_obs_torch_new(self.forward_X, self.forward_missing_mask, 'forward')
+                self.processed_data["last_obs_b"] = compute_last_obs_torch_new(self.forward_X, self.forward_missing_mask, 'backward')
+                
+                # news, self.yess = non_uniform_sample_loader_bidirectional(self.normalized_data, removal_percent,
+                #                                                           replacement_probabilities, increase_factor)
+                # self.nooo = collate_fn_bidirectional(news)
+                # print('new and non un compare forward', torch.equal(self.processed_data["last_obs_f"], self.nooo["last_obs_f"]))
+                # print('new and non un compare backward ', torch.equal(self.processed_data["last_obs_b"], self.nooo["last_obs_b"]))
+
+
+            else:
+                self.normalized_data, self.mean_set, self.std_set, self.intervals = normalize_csai(self.data['X'], normalise_mean, 
+                                                                                                normalise_std, compute_intervals) 
+                _data, self.replacement_probabilities = non_uniform_sample_loader_bidirectional(self.normalized_data, 
+                                                                                                        removal_percent, 
+                                                                                                        replacement_probabilities, 
+                                                                                                        increase_factor)
+                self.processed_data = collate_fn_bidirectional(_data)
+                self.forward_X = self.processed_data['values']
+                self.forward_missing_mask = self.processed_data['masks']
+                self.backward_X = torch.flip(self.forward_X, dims=[1])
+                self.backward_missing_mask = torch.flip(self.forward_missing_mask, dims=[1])
+
+                self.X_ori = self.processed_data['evals']
+                self.X_ori_missing_mask = self.processed_data['eval_masks']
+                lf = compute_last_obs_torch_new(self.backward_X, self.backward_missing_mask, 'backward')
+                print('new and non un compare backward ', torch.equal(lf, self.processed_data['last_obs_b']))
+                lf2 = compute_last_obs_torch_new(self.forward_X, self.forward_missing_mask, 'forward')
+                print('new and non un compare forward', torch.equal(lf2, self.processed_data['last_obs_f']))
+                print('old and new compare', torch.equal(lf2, lf))
+
+                # if self.return_y:
+                #     self.y = self.processed_data['labels']
+                
 
 
     def _fetch_data_from_array(self, idx: int) -> Iterable:
@@ -98,7 +146,7 @@ class DatasetForCSAI(BaseDataset):
         ]
 
         if not self.training and self.impute_only:
-            sample.extend([self.X_ori[idx], self.indicating_mask[idx]])
+            sample.extend([self.X_ori[idx], self.X_ori_missing_mask[idx]])
 
         if self.return_y:
             sample.append(self.y[idx].to(torch.long))
