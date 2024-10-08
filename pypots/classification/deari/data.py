@@ -8,6 +8,7 @@ class DatasetForDEARI(DatasetForDEARI_Imputation):
                     file_type: str = "hdf5",
                     return_y: bool = True,
                     removal_percent: float = 0.0,
+                    masking_mode: str = "pygrinder",
                     normalise_mean: list = [],
                     normalise_std: list = [],
                     training: bool = True
@@ -18,6 +19,7 @@ class DatasetForDEARI(DatasetForDEARI_Imputation):
                 return_X_ori=False,
                 return_y=return_y,
                 file_type=file_type,
+                masking_mode=masking_mode,
                 removal_percent=removal_percent,
                 normalise_mean=normalise_mean,
                 normalise_std=normalise_std,

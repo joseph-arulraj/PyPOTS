@@ -1,3 +1,7 @@
+"""
+This module contains the implementation of the DEARI model.
+"""
+
 from typing import Optional, Union
 import numpy as np
 import torch
@@ -11,6 +15,83 @@ from ...optim.base import Optimizer
 
 
 class DEARI(BaseNNClassifier):
+    """
+    Parameters
+    ----------
+    n_steps: int
+        The number of time steps in the input data.
+    
+    n_features: int
+        The number of features in the input data.
+
+    rnn_hidden_size: int
+        The number of hidden units in the RNN.
+
+    imputation_weight: float
+        The weight of the imputation loss.
+
+    consistency_weight: float
+        The weight of the consistency loss.
+
+    classification_weight: float
+        The weight of the classification loss.
+
+    n_classes: int
+        The number of classes in the classification task.
+
+    removal_percent: int
+        The percentage of data to be removed during training.
+
+    num_encoder_layers: int
+        The number of encoder layers in the RNN.
+
+    component_error: bool
+        Whether to use component-wise error.
+
+    is_gru: bool
+        Whether to use GRU or LSTM.
+
+    multi: int
+        The number of multi-layers in the model.
+
+    batch_size: int
+        The batch size of the data used for training and validation.
+
+    epochs: int
+        The number of epochs to train the model.
+
+    masking_mode: str
+        The masking mode for the dataset. It should be one of the following: 'pygrinder' or 'deari'. If 'pygrinder', the dataset will use the masking mode from the package PyGrinder. If 'deari', the dataset will use the masking mode from the sample bidirectional masking.
+
+    model_name: str
+        The name of the model.
+
+    dropout: float
+    The dropout rate for the model to prevent overfitting. Default is 0.5.
+
+    patience: int
+        The number of epochs to wait before early stopping. If None, early stopping is not used.
+
+    optimizer: Optimizer
+        The optimizer used to train the model. Default is Adam.
+
+    num_workers: int
+        The number of subprocesses used for data loading. Setting this to `0` means that data loading is performed in the main process without using subprocesses.
+
+    device :
+        The device for the model to run on, which can be a string, a :class:`torch.device` object, or a list of devices. If not provided, the model will attempt to use available CUDA devices first, then default to CPUs.
+
+    saving_path :
+         The path for saving model checkpoints and tensorboard files during training. If not provided, models will not be saved automatically.
+
+    model_saving_strategy :
+        The strategy for saving model checkpoints. Can be one of [None, "best", "better", "all"]. "best" saves the best model after training, "better" saves any model that improves during training, and "all" saves models after each epoch. If set to None, no models will be saved.
+
+    verbose :
+        Whether to print training logs during the training process.
+
+
+    """
     def __init__(self,
                     n_steps: int,
                     n_features: int,
@@ -26,6 +107,7 @@ class DEARI(BaseNNClassifier):
                     multi: int,
                     batch_size: int,
                     epochs: int,
+                    masking_mode: str = 'pygrinder',
                     model_name: str = 'Brits_multilayer',
                     dropout: float = 0.5,
                     patience: Union[int, None] = None,
@@ -52,6 +134,7 @@ class DEARI(BaseNNClassifier):
             self.imputation_weight = imputation_weight
             self.consistency_weight = consistency_weight
             self.classification_weight = classification_weight
+            self.masking_mode = masking_mode
             self.removal_percent = removal_percent
             self.num_encoderlayer = num_encoder_layers
             self.model_name = model_name
@@ -159,6 +242,7 @@ class DEARI(BaseNNClassifier):
             return_y=True,
             file_type=file_type,
             removal_percent=self.removal_percent,
+            masking_mode=self.masking_mode,
             training=True
         )
 
@@ -180,6 +264,7 @@ class DEARI(BaseNNClassifier):
                 return_y=True,
                 file_type=file_type,
                 removal_percent=self.removal_percent,
+                masking_mode=self.masking_mode,
                 normalise_mean=self.mean_set,
                 normalise_std=self.std_set,
             )
@@ -212,6 +297,7 @@ class DEARI(BaseNNClassifier):
             return_y=False,
             file_type=file_type,
             removal_percent=self.removal_percent,
+            masking_mode=self.masking_mode,
             normalise_mean=self.mean_set,
             normalise_std=self.std_set,
             training=False

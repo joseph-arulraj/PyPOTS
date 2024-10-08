@@ -4,45 +4,46 @@ from ...data.dataset import BaseDataset
 import numpy as np
 import torch
 from ..csai.data import normalize_csai, non_uniform_sample, parse_delta, compute_last_obs   
+from pygrinder import mcar, fill_and_get_mask_torch
+from ...data.utils import _parse_delta_torch
 
-
-def compute_last_obs_tensor(data, masks):
-    """
-    Compute the last observed values for each time step for the whole tensor.
+# def compute_last_obs_tensor(data, masks):
+#     """
+#     Compute the last observed values for each time step for the whole tensor.
     
-    Parameters:
-    - data (torch.Tensor): Input tensor of shape [B, T, D].
-    - masks (torch.Tensor): Binary masks indicating where data is not NaN, of shape [B, T, D].
+#     Parameters:
+#     - data (torch.Tensor): Input tensor of shape [B, T, D].
+#     - masks (torch.Tensor): Binary masks indicating where data is not NaN, of shape [B, T, D].
 
-    Returns:
-    - last_obs (torch.Tensor): Last observed values tensor of shape [B, T, D].
-    """ 
+#     Returns:
+#     - last_obs (torch.Tensor): Last observed values tensor of shape [B, T, D].
+#     """ 
 
-    def compute_last_obs_single_batch(data, masks):
-        """
-        Compute the last observed values for each time step for a single batch.
-        """
-        T, D = masks.shape
-        last_obs = torch.full((T, D), np.nan)  # Initialize last observed values with NaNs for a single batch
-        last_obs_val = torch.full((D,), np.nan)  # Initialize last observed values for first time step with NaNs
+#     def compute_last_obs_single_batch(data, masks):
+#         """
+#         Compute the last observed values for each time step for a single batch.
+#         """
+#         T, D = masks.shape
+#         last_obs = torch.full((T, D), np.nan)  # Initialize last observed values with NaNs for a single batch
+#         last_obs_val = torch.full((D,), np.nan)  # Initialize last observed values for first time step with NaNs
 
-        for t in range(1, T):  # Start from t=1, keeping first row as NaN
-            mask = masks[t - 1].bool()
-            # Update last observed values based on previous time step
-            last_obs_val[mask] = data[t - 1, mask]
-            # Assign last observed values to the current time step
-            last_obs[t] = last_obs_val 
+#         for t in range(1, T):  # Start from t=1, keeping first row as NaN
+#             mask = masks[t - 1].bool()
+#             # Update last observed values based on previous time step
+#             last_obs_val[mask] = data[t - 1, mask]
+#             # Assign last observed values to the current time step
+#             last_obs[t] = last_obs_val 
         
-        return last_obs
+#         return last_obs
 
 
-    B, T, D = masks.shape
-    last_obs_batch = torch.full((B, T, D), np.nan)  # Initialize last observed values with NaNs for a whole batch
-    # loop over each batch
-    for b in range(B):
-        last_obs_batch[b] = compute_last_obs_single_batch(data[b], masks[b])
+    # B, T, D = masks.shape
+    # last_obs_batch = torch.full((B, T, D), np.nan)  # Initialize last observed values with NaNs for a whole batch
+    # # loop over each batch
+    # for b in range(B):
+    #     last_obs_batch[b] = compute_last_obs_single_batch(data[b], masks[b])
 
-    return last_obs_batch
+    # return last_obs_batch
 
 
 def sample_loader_bidirectional( data, removal_percent):
@@ -157,6 +158,9 @@ class DatasetForDEARI(BaseDataset):
     file_type (str):
         The type of the data file, which should be one of the following: 'hdf5'.
 
+    masking_mode (str):
+        The masking mode for the dataset. It should be one of the following: 'pygrinder' or 'deari'. If 'pygrinder', the dataset will use the masking mode from the package PyGrinder. If 'deari', the dataset will use the masking mode from the sample bidirectional masking.
+    
     removal_percent (float):
         Percentage of observed values to be randomly eliminated as the imputation ground-truth.
 
@@ -174,10 +178,12 @@ class DatasetForDEARI(BaseDataset):
                  return_X_ori: bool, 
                  return_y: bool, 
                  file_type: str = "hdf5",
+                 masking_mode: str = "pygrinder",
                  removal_percent: float = 0.0,
                  normalise_mean : list = [],
                  normalise_std: list = [],
                  training: bool = True
+                 
     ):
         super().__init__(data = data, 
                          return_X_ori = return_X_ori, 
@@ -194,15 +200,34 @@ class DatasetForDEARI(BaseDataset):
                                                                                normalise_mean, 
                                                                                normalise_std
                                                                                ) 
-            self.processed_data = sample_loader_bidirectional(self.normalized_data, 
-                                                              removal_percent
-                                                              )
-            self.forward_X = self.processed_data['values']
-            self.forward_missing_mask = self.processed_data['masks']
-            self.backward_missing_mask = torch.flip(self.forward_missing_mask, dims=[1])
+            if masking_mode == 'pygrinder':
+                self.processed_data = {}
+                if isinstance(self.normalized_data, np.ndarray):
+                    self.normalized_data_tensor = torch.from_numpy(self.normalized_data)
+                
+                # Introduce artificial missing values
+                self.normalized_data_miss = mcar(self.normalized_data_tensor, removal_percent/100)
+                # Fill missing values and get missing mask
+                self.forward_X, self.forward_missing_mask = fill_and_get_mask_torch(self.normalized_data_miss)#
 
-            self.X_ori = self.processed_data['evals']
-            self.indicating_mask = self.processed_data['eval_masks']
+                # backward missing mask
+                self.backward_missing_mask = torch.flip(self.forward_missing_mask, dims=[1])
+
+                self.forward_X = self.forward_X.to(torch.float32)
+                # Compute forward and backward deltas
+                self.processed_data["deltas_f"] = _parse_delta_torch(self.forward_missing_mask)
+                self.processed_data["deltas_b"] = _parse_delta_torch(self.backward_missing_mask)
+
+            else:
+                self.processed_data = sample_loader_bidirectional(self.normalized_data, 
+                                                                removal_percent
+                                                                )
+                self.forward_X = self.processed_data['values']
+                self.forward_missing_mask = self.processed_data['masks']
+                self.backward_missing_mask = torch.flip(self.forward_missing_mask, dims=[1])
+
+                self.X_ori = self.processed_data['evals']
+                self.indicating_mask = self.processed_data['eval_masks']
 
     def _fetch_data_from_array(self, idx: int) -> Iterable:
         """Fetch data from self.X if it is given.

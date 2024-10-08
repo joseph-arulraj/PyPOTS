@@ -38,6 +38,9 @@ class DEARI(BaseNNImputer):
     removal_percent :
         the percentage of data to remove from the training set
 
+    masking_mode :
+        The masking mode for the dataset. It should be one of the following: 'pygrinder' or 'deari'. If 'pygrinder', the dataset will use the masking mode from the package PyGrinder. If 'deari', the dataset will use the masking mode from the sample bidirectional masking.
+
     batch_size :
         the batch size for training and evaluation of the model
 
@@ -51,7 +54,7 @@ class DEARI(BaseNNImputer):
         number of encoder layers for the transformer
 
     multi :
-        whether to use multi-head attention in the transformer
+        The number of multi-layers in the model.
 
     is_gru :
         whether to use GRU or LSTM cell
@@ -91,6 +94,7 @@ class DEARI(BaseNNImputer):
                  removal_percent: int,
                  batch_size: int, 
                  epochs: int, 
+                 masking_mode: str = 'pygrinder',
                  model_name: str = 'Brits_multilayer',
                  num_encoder_layers: int = 2,
                  multi: int =  8,
@@ -110,6 +114,7 @@ class DEARI(BaseNNImputer):
         self.imputation_weight = imputation_weight
         self.consistency_weight = consistency_weight
         self.removal_percent = removal_percent
+        self.masking_mode = masking_mode
         self.num_encoder_layers = num_encoder_layers
         self.multi = multi
         self.is_gru = is_gru
@@ -204,7 +209,7 @@ class DEARI(BaseNNImputer):
     def fit(self, train_set, val_set, file_type:str = "hdf5"):
 
         self.training_set = DatasetForDEARI(
-            train_set, False, False, file_type, self.removal_percent
+            train_set, False, False, file_type, self.masking_mode ,self.removal_percent
             )
         
         self.mean_set = self.training_set.mean_set
@@ -220,7 +225,8 @@ class DEARI(BaseNNImputer):
         
         if val_set is not None:
             self.validation_set = DatasetForDEARI(
-                val_set, True, False, file_type, self.removal_percent,
+                val_set, True, False, file_type, 
+                self.masking_mode, self.removal_percent,
                 self.mean_set, self.std_set,
                 False
             )
@@ -267,7 +273,8 @@ class DEARI(BaseNNImputer):
 
         self.model.eval()
         test_set = DatasetForDEARI(
-            test_set, True, False, file_type, self.removal_percent,
+            test_set, True, False, file_type, 
+            self.masking_mode, self.removal_percent,
             self.mean_set, self.std_set, False
         )
 
