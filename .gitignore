@@ -15,7 +15,21 @@ docs/_build
 .pytest_cache
 *__pycache__*
 *test*
+output_logs/
+conference_paper_logs/
 
 # ignore specific kinds of files like all PDFs
 *.pdf
 *.ipynb
+
+# ignore all the run scripts
+run_*.sh
+csai.py
+brits.py
+deari.py
+bayesian_deari.py
+grud.py
+vrin.py
+
+# ignore the saved model
+classification/
