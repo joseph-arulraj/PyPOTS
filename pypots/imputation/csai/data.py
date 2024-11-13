@@ -6,6 +6,8 @@
 # License: BSD-3-Clause
 
 from typing import Iterable
+
+from pygrinder import fill_and_get_mask_torch
 from ...data.dataset import BaseDataset
 import numpy as np
 import torch
@@ -328,6 +330,13 @@ class DatasetForCSAI(BaseDataset):
     training :
         Whether the dataset is used for training. If `False`, it will adjust how data is processed, particularly for evaluation and testing phases.
 
+    is_normalise : 
+        Whether to normalize the input data. Set this flag to False if the the data is already normalised.
+    
+    non_uniform : 
+        Whether to apply non-uniform sampling to simulate missing values. If `True`, non-uniform sampling will be applied. Default is False.
+    
+
     Notes
     -----
     The DatasetForCSAI class is designed for bidirectional imputation of time-series data, handling both forward and backward directions to improve imputation accuracy. It supports on-the-fly data normalization and missing value simulation, making it suitable for training and evaluating deep learning models like CSAI. The class can work with large datasets stored on disk, leveraging lazy-loading to minimize memory usage, and supports both training and testing scenarios, adjusting data handling as needed.
@@ -347,6 +356,8 @@ class DatasetForCSAI(BaseDataset):
         normalise_mean: list = [],
         normalise_std: list = [],
         training: bool = True,
+        is_normalise: bool = False,
+        non_uniform: bool = False,
     ):
         super().__init__(
             data=data, return_X_ori=return_X_ori, return_X_pred=False, return_y=return_y, file_type=file_type
@@ -359,28 +370,66 @@ class DatasetForCSAI(BaseDataset):
         self.normalise_mean = normalise_mean
         self.normalise_std = normalise_std
         self.training = training
+        self.is_normalise = is_normalise
+        self.non_uniform = non_uniform
 
         if not isinstance(self.data, str):
-            self.normalized_data, self.mean_set, self.std_set, self.intervals = normalize_csai(
-                self.data["X"],
-                self.normalise_mean,
-                self.normalise_std,
-                compute_intervals,
-            )
+            if self.is_normalise:
+                self.normalized_data, self.mean_set, self.std_set, self.intervals = normalize_csai(
+                    self.data["X"],
+                    self.normalise_mean,
+                    self.normalise_std,
+                    compute_intervals,
+                )
+            else:
+                self.normalized_data = self.data["X"]
+                self.mean_set = self.normalise_mean
+                self.std_set = self.normalise_std
+                self.intervals = {}
+                if compute_intervals:
+                    for v in range(self.normalized_data.shape[2]):
+                        all_intervals = []
+                        for p in range(self.normalized_data.shape[0]):
+                            valid_time_points = np.where(~np.isnan(self.normalized_data[p, :, v]))[0]
+                            if len(valid_time_points) > 1:
+                                intervals = np.diff(valid_time_points)
+                                all_intervals.extend(intervals)
+                        self.intervals[v] = np.median(all_intervals) if all_intervals else np.nan
 
-            self.processed_data, self.replacement_probabilities = non_uniform_sample(
-                self.normalized_data,
-                removal_percent,
-                replacement_probabilities,
-                increase_factor,
-            )
-            self.forward_X = self.processed_data["values"]
-            self.forward_missing_mask = self.processed_data["masks"]
-            self.backward_X = torch.flip(self.forward_X, dims=[1])
-            self.backward_missing_mask = torch.flip(self.forward_missing_mask, dims=[1])
+            if self.non_uniform:
+                self.processed_data, self.replacement_probabilities = non_uniform_sample(
+                    self.normalized_data,
+                    removal_percent,
+                    replacement_probabilities,
+                    increase_factor,
+                )
+                self.forward_X = self.processed_data["values"]
+                self.forward_missing_mask = self.processed_data["masks"]
+                self.backward_X = torch.flip(self.forward_X, dims=[1])
+                self.backward_missing_mask = torch.flip(self.forward_missing_mask, dims=[1])
 
-            self.X_ori = self.processed_data["evals"]
-            self.indicating_mask = self.processed_data["eval_masks"]
+                self.X_ori = self.processed_data["evals"]
+                self.indicating_mask = self.processed_data["eval_masks"]
+            else:
+                if self.return_X_ori:
+                    self.forward_missing_mask = self.missing_mask
+                    self.forward_X = self.X
+                else:
+                    self.forward_X, self.forward_missing_mask = fill_and_get_mask_torch(self.X)
+
+
+                deltas_f = parse_delta(self.forward_missing_mask)
+                self.backward_X = torch.flip(self.forward_X, dims=[1])
+                self.backward_missing_mask = torch.flip(self.forward_missing_mask, dims=[1])
+                deltas_b = parse_delta(self.backward_missing_mask)
+
+                self.processed_data = {
+                    "deltas_f": deltas_f,
+                    "deltas_b": deltas_b,
+                    "last_obs_f": compute_last_obs(self.forward_X, self.forward_missing_mask),
+                    "last_obs_b": compute_last_obs(self.backward_X, self.backward_missing_mask),
+                }
+                self.replacement_probabilities = None
 
     def _fetch_data_from_array(self, idx: int) -> Iterable:
         """Fetch data from self.X if it is given.

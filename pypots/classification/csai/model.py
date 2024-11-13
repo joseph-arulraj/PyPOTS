@@ -83,6 +83,12 @@ class CSAI(BaseNNClassifier):
     model_saving_strategy :
     The strategy to save model checkpoints. It has to be one of [None, "best", "better", "all"]. No model will be saved when it is set as None. The "best" strategy will only automatically save the best model after the training finished. The "better" strategy will automatically save the model during training whenever the model performs better than in previous epochs. The "all" strategy will save every model after each epoch training.
 
+    is_normalise : 
+        Whether to normalize the input data. Set this flag to False if the the data is already normalised.
+    
+    non_uniform : 
+        Whether to apply non-uniform sampling to simulate missing values. If `True`, non-uniform sampling will be applied. Default is False.
+
     verbose :
     Whether to print out the training logs during the training process.
 
@@ -110,6 +116,8 @@ class CSAI(BaseNNClassifier):
         device: Optional[Union[str, torch.device, list]] = None,
         saving_path: str = None,
         model_saving_strategy: Union[str, None] = "best",
+        is_normalise: bool = False,
+        non_uniform: bool = False,
         verbose: bool = True,
     ):
         super().__init__(
@@ -136,6 +144,8 @@ class CSAI(BaseNNClassifier):
         self.compute_intervals = compute_intervals
         self.dropout = dropout
         self.intervals = None
+        self.is_normalise = is_normalise
+        self.non_uniform = non_uniform
 
         # Initialise empty model
         self.model = _BCSAI(
@@ -237,6 +247,8 @@ class CSAI(BaseNNClassifier):
             removal_percent=self.removal_percent,
             increase_factor=self.increase_factor,
             compute_intervals=self.compute_intervals,
+            is_normalise=self.is_normalise,
+            non_uniform=self.non_uniform,
         )
 
         self.intervals = self.training_set.intervals
@@ -262,6 +274,8 @@ class CSAI(BaseNNClassifier):
                 replacement_probabilities=self.replacement_probabilities,
                 normalise_mean=self.mean_set,
                 normalise_std=self.std_set,
+                is_normalise=self.is_normalise,
+                non_uniform=self.non_uniform,
             )
             val_loader = DataLoader(
                 val_set,
@@ -313,6 +327,8 @@ class CSAI(BaseNNClassifier):
             normalise_mean=self.mean_set,
             normalise_std=self.std_set,
             training=False,
+            is_normalise=self.is_normalise,
+            non_uniform=self.non_uniform,
         )
         test_loader = DataLoader(
             test_set,

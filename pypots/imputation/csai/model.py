@@ -91,6 +91,12 @@ class CSAI(BaseNNImputer):
         better than in previous epochs.
         The "all" strategy will save every model after each epoch training.
 
+    is_normalise : 
+        Whether to normalize the input data. Set this flag to False if the the data is already normalised.
+    
+    non_uniform : 
+        Whether to apply non-uniform sampling to simulate missing values. If `True`, non-uniform sampling will be applied. Default is False.
+
     verbose :
         Whether to print out the training logs during the training process.
 
@@ -123,6 +129,8 @@ class CSAI(BaseNNImputer):
         device: Union[str, torch.device, list, None] = None,
         saving_path: str = None,
         model_saving_strategy: Union[str, None] = "best",
+        is_normalise: bool = False,
+        non_uniform: bool = False,
         verbose: bool = True,
     ):
         super().__init__(
@@ -146,6 +154,8 @@ class CSAI(BaseNNImputer):
         self.step_channels = step_channels
         self.compute_intervals = compute_intervals
         self.intervals = None
+        self.is_normalise = is_normalise
+        self.non_uniform = non_uniform
 
         # Initialise model
         self.model = _BCSAI(
@@ -239,7 +249,7 @@ class CSAI(BaseNNImputer):
     ) -> None:
 
         self.training_set = DatasetForCSAI(
-            train_set, False, False, file_type, self.removal_percent, self.increase_factor, self.compute_intervals
+            train_set, False, False, file_type, self.removal_percent, self.increase_factor, self.compute_intervals, self.is_normalise, self.non_uniform
         )
         self.intervals = self.training_set.intervals
         self.replacement_probabilities = self.training_set.replacement_probabilities
@@ -266,6 +276,8 @@ class CSAI(BaseNNImputer):
                 self.mean_set,
                 self.std_set,
                 False,
+                self.is_normalise,
+                self.non_uniform,
             )
             val_loader = DataLoader(
                 val_set,
@@ -319,6 +331,8 @@ class CSAI(BaseNNImputer):
             self.mean_set,
             self.std_set,
             False,
+            self.is_normalise,
+            self.non_uniform,
         )
 
         test_loader = DataLoader(

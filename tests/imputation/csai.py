@@ -59,6 +59,8 @@ class TestCSAI(unittest.TestCase):
         device=DEVICE,
         saving_path=saving_path,
         model_saving_strategy="best",
+        is_normalise=False,
+        non_uniform=False,
         verbose=True,
     )
 
