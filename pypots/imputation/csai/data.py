@@ -423,13 +423,19 @@ class DatasetForCSAI(BaseDataset):
                 self.backward_missing_mask = torch.flip(self.forward_missing_mask, dims=[1])
                 deltas_b = parse_delta(self.backward_missing_mask)
 
+                B, T, D = self.forward_X.shape
+
+                last_obs_f = np.array(np.nan_to_num([compute_last_obs(self.forward_X[b], self.forward_missing_mask[b].bool()) for b in range(B)])).astype(np.float32)
+                last_obs_b = np.array(np.nan_to_num([compute_last_obs(self.backward_X[b], self.backward_missing_mask[b].bool()) for b in range(B)])).astype(np.float32)
+
                 self.processed_data = {
                     "deltas_f": deltas_f,
                     "deltas_b": deltas_b,
-                    "last_obs_f": compute_last_obs(self.forward_X, self.forward_missing_mask),
-                    "last_obs_b": compute_last_obs(self.backward_X, self.backward_missing_mask),
+                    "last_obs_f": torch.FloatTensor(last_obs_f),
+                    "last_obs_b": torch.FloatTensor(last_obs_b),
                 }
-                self.replacement_probabilities = None
+
+                self.replacement_probabilities = 0.0
 
     def _fetch_data_from_array(self, idx: int) -> Iterable:
         """Fetch data from self.X if it is given.
