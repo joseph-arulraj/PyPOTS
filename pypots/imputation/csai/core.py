@@ -95,6 +95,8 @@ class _BCSAI(nn.Module):
 
         results = {
             "imputed_data": imputed_data,
+            'f_hidden_states': f_hidden_states,
+            'b_hidden_states': b_hidden_states
         }
 
         # if in training mode, return results with losses

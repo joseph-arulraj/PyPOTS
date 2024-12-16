@@ -55,7 +55,7 @@ class _GRUD(nn.Module):
         empirical_mean = inputs["empirical_mean"]
         X_filledLOCF = inputs["X_filledLOCF"]
 
-        hidden_states, _ = self.backbone(X, missing_mask, deltas, empirical_mean, X_filledLOCF)
+        hidden_states, h_s = self.backbone(X, missing_mask, deltas, empirical_mean, X_filledLOCF)
 
         # project back the original data space
         reconstruction = self.output_projection(hidden_states)
@@ -63,6 +63,7 @@ class _GRUD(nn.Module):
         imputed_data = missing_mask * X + (1 - missing_mask) * reconstruction
         results = {
             "imputed_data": imputed_data,
+            "hidden_states": h_s
         }
 
         # if in training mode, return results with losses
